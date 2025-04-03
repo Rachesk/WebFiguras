@@ -125,25 +125,16 @@ body {
   }
   
  /*CArousel*/
-  .custom1-background {
-    background-image: url('https://www.geekz.cl/web/image/193443/00_pokepla-modelkit_bandai-hobby.jpg');
-    background-size: cover;
-    background-position: center; 
-  }
+  
 
-  .custom-background {
+  /*.custom-background {
     background-image: url('https://www.24horas.cl/24horas/site/artic/20230802/imag/foto_0000001320230802190919/pets-ga60cd5525_1280.jpg');
     background-size: cover; 
     background-position: center; 
-  }
+  }*/
 
 
-  .custom3-background {
-    background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.nintendo.com%2Fes-cl%2Fstore%2Fproducts%2Ffitness-boxing-feat-hatsune-miku-switch%2F&psig=AOvVaw319agvxWZU6YJMsrJQj4nf&ust=1743711783124000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJi_ieKWuowDFQAAAAAdAAAAABBF');
-    background-size: cover;
-    background-position: center; 
-  }
-
+  
    /*CARD*/
 
   .card-container {
