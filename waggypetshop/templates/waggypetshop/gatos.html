@@ -18,7 +18,7 @@
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'index' %}">
-                    <img src="{% static 'waggypetshop/images/logo.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
+                    <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -29,13 +29,13 @@
                             <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
+                            <a class="nav-link" href="{% url 'nosotros' %}">Preguntas</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'perros' %}">Comida para perros</a></li>
-                                <li><a class="dropdown-item" href="{% url 'gatos' %}">Comida para gatos</a></li>
+                                <li><a class="dropdown-item" href="{% url 'perros' %}">Figuras</a></li>
+                                <li><a class="dropdown-item" href="{% url 'gatos' %}">Vestuario</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{% url 'otros' %}">Otros productos</a></li>
                             </ul>
@@ -68,8 +68,8 @@
     <div class="container">
         <br>
         <br>
-        <h1 style="text-align: center;">Nuestra gama de nutrición para gatos</h1>
-        <p style="text-align: center;">Nuestra gama completa de alimentos húmedos y secos ofrece una nutrición precisa para gatos de todas las edades, tamaños y razas.</p>
+        <h1 style="text-align: center;">Nuestra amplia coleccion de poleras</h1>
+        <p style="text-align: center;">Nuestra completa coleccion de poleras de tus animes favoritos</p>
     </div>
     <hr class="featurette-divider">
     <!-- CARD -->
@@ -77,60 +77,60 @@
         <!-- CARD DE ALIMENTOS PARA GATOS -->
         <div class="card-container">
             <div class="card">
-                <img class="card-img-top" src="{% static 'waggypetshop/images/alimentog.png' %}" alt="Card image cap">
+                <img class="card-img-top" src="{% static 'waggypetshop/images/poleragato.jpg' %}" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">Mother & Babycat</h5>
-                    <p class="card-text">Alimento seco para gatos.</p>
-                    <p class="card-text">$ 21.990</p>
-                    <a href="#" class="btn btn-light" onclick="addToCart('Mother & Babycat', 21990)">Comprar</a>
+                    <h5 class="card-title">POLERA CATURAI X BY VINCENT TRINIDAD</h5>
+                    <p class="card-text">Polera manga corta</p>
+                    <p class="card-text">$ 14.990</p>
+                    <a href="#" class="btn btn-light" onclick="addToCart('POLERA CATURAI X BY VINCENT TRINIDAD', 14990)">Comprar</a>
                 </div>
             </div>
             <div class="card">
-                <img class="card-img-top" src="{% static 'waggypetshop/images/alimentog2.png' %}" alt="Card image cap">
+                <img class="card-img-top" src="{% static 'waggypetshop/images/polera2.jpg' %}" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">Kitten Sterilised Pouch</h5>
-                    <p class="card-text">Alimento seco para gatos.</p>
-                    <p class="card-text">$ 4.990</p>
-                    <a href="#" class="btn btn-light" onclick="addToCart('Kitten Sterilised Pouch', 4990)">Comprar</a>
+                    <h5 class="card-title">POLERA CHOPPER BLANCA - ONE PIECE</h5>
+                    <p class="card-text">Polera manga corta</p>
+                    <p class="card-text">$ 14.990</p>
+                    <a href="#" class="btn btn-light" onclick="addToCart('POLERA CHOPPER BLANCA - ONE PIECE', 14990)">Comprar</a>
                 </div>
             </div>
             <div class="card">
-                <img class="card-img-top" src="{% static 'waggypetshop/images/alimentog3.png' %}" alt="Card image cap">
+                <img class="card-img-top" src="{% static 'waggypetshop/images/polera3.jpg' %}" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">Fit</h5>
-                    <p class="card-text">Alimento seco para gatos.</p>
-                    <p class="card-text">$ 25.990</p>
-                    <a href="#" class="btn btn-light" onclick="addToCart('Fit', 25990)">Comprar</a>
+                    <h5 class="card-title">POLERA FRANKY BLANCA - ONE PIECE</h5>
+                    <p class="card-text">Polera manga corta</p>
+                    <p class="card-text">$ 14.990</p>
+                    <a href="#" class="btn btn-light" onclick="addToCart('POLERA FRANKY BLANCA - ONE PIECE', 14990)">Comprar</a>
                 </div>
             </div>
             <hr class="featurette-divider">
         </div>
         <div class="card-container">
             <div class="card">
-                <img class="card-img-top" src="{% static 'waggypetshop/images/alimentog4.png' %}" alt="Card image cap">
+                <img class="card-img-top" src="{% static 'waggypetshop/images/polera4.jpg' %}" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">Sensible</h5>
-                    <p class="card-text">Alimento seco para gatos.</p>
-                    <p class="card-text">$ 23.990</p>
-                    <a href="#" class="btn btn-light" onclick="addToCart('Sensible', 23990)">Comprar</a>
+                    <h5 class="card-title">POLERA KITTY TO THE PAST BLANCA BY ILUSTRATA</h5>
+                    <p class="card-text">Polera manga corta</p>
+                    <p class="card-text">$ 14.990</p>
+                    <a href="#" class="btn btn-light" onclick="addToCart('POLERA KITTY TO THE PAST BLANCA BY ILUSTRATA', 14990)">Comprar</a>
                 </div>
             </div>
             <div class="card">
-                <img class="card-img-top" src="{% static 'waggypetshop/images/alimentog5.png' %}" alt="Card image cap">
+                <img class="card-img-top" src="{% static 'waggypetshop/images/polera5.jpg' %}" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">Sterilised</h5>
-                    <p class="card-text">Alimento seco para gatos.</p>
-                    <p class="card-text">$ 21.990</p>
-                    <a href="#" class="btn btn-light" onclick="addToCart('Sterilised', 21990)">Comprar</a>
+                    <h5 class="card-title">POLERA NAMI BLANCA - ONE PIECE</h5>
+                    <p class="card-text">Polera manga corta.</p>
+                    <p class="card-text">$ 14.990</p>
+                    <a href="#" class="btn btn-light" onclick="addToCart('POLERA NAMI BLANCA - ONE PIECE', 14990)">Comprar</a>
                 </div>
             </div>
             <div class="card">
-                <img class="card-img-top" src="{% static 'waggypetshop/images/alimentog6.png' %}" alt="Card image cap">
+                <img class="card-img-top" src="{% static 'waggypetshop/images/polera6.jpg' %}" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">Hair & Skin Care</h5>
-                    <p class="card-text">Alimento seco para gatos.</p>
-                    <p class="card-text">$ 26.990</p>
-                    <a href="#" class="btn btn-light" onclick="addToCart('Hair & Skin Care', 26990)">Comprar</a>
+                    <h5 class="card-title">POLERA NICO ROBIN BLANCA - ONE PIECE</h5>
+                    <p class="card-text">Polera manga corta</p>
+                    <p class="card-text">$ 14.990</p>
+                    <a href="#" class="btn btn-light" onclick="addToCart('POLERA NICO ROBIN BLANCA - ONE PIECE', 14990)">Comprar</a>
                 </div>
             </div>
             <hr class="featurette-divider">

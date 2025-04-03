@@ -17,7 +17,7 @@
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="{% url 'index' %}">
-        <img src="{% static 'waggypetshop/images/logo.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
+        <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -28,15 +28,15 @@
             <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
+            <a class="nav-link" href="{% url 'nosotros' %}">Preguntas</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Productos
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'perros' %}">Comida para perros</a></li>
-              <li><a class="dropdown-item" href="{% url 'gatos' %}">Comida para gatos</a></li>
+              <li><a class="dropdown-item" href="{% url 'perros' %}">Figuras</a></li>
+              <li><a class="dropdown-item" href="{% url 'gatos' %}">Vestuario</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="{% url 'otros' %}">Otros productos</a></li>
             </ul>
@@ -83,30 +83,107 @@
  <!-- Columnas tiendas horarios -->
  <div class="row">
   <div class="col-lg-4">
-    <img src="{% static 'waggypetshop/images/logo.png' %}" alt="">
-    <h3 class="fw-normal">WAGGY SANTIAGO C.</h3>
+    <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="" width="200">
+ <!-- TIENDA NUMERO 1 -->
+    <h3 class="fw-normal">SAKAMOTO TOYS SANTIAGO C.</h3>
     <p>Horarios: </p>
     <p>Lunes a Viernes de 19:00 a 20:00 hrs</p>
     <p>Sabados de 10:00 a 18:00 hrs</p>
-    <p><a class="btn btn-secondary" href="#">Ver Mapa &raquo;</a></p>
+    
   </div>
+  <!-- TIENDA NUMERO 2 -->
   <div class="col-lg-4">
-    <img src="{% static 'waggypetshop/images/logo.png' %}" alt="">
-    <h3 class="fw-normal">WAGGY WEB</h3>
+    <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="" width="200">
+
+    <h3 class="fw-normal">SAKAMOTO TOYS PROVIDENCIA</h3>
     <p>Horarios: </p>
     <p>Abierta las 24 horas.</p>
-    <p><a class="btn btn-secondary" href="#">Ver Mapa &raquo;</a></p>
+    
   </div>
+  <!-- TIENDA NUMERO 3 -->
   <div class="col-lg-4">
-    <img src="{% static 'waggypetshop/images/logo.png' %}" alt="">
-    <h3 class="fw-normal">PROVIDENCIA</h3>
+    <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="" width="200">
+
+
+    <h3 class="fw-normal">SAKAMOTO TOYS PLAZA VESPUCIO</h3>
     <p>Horarios: </p>
     <p>Lunes a Vernes de 10:00 a 20:00 Hrs</p>
     <p>Sabados de 10:00 a 18:00 hrs</p>
-    <p><a class="btn btn-secondary" href="#">Ver Mapa &raquo;</a></p>
+    
+  </div>
+<!-- TIENDA NUMERO 4 -->
+  <div class="col-lg-4">
+    <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="" width="200">
+
+
+    <h3 class="fw-normal">SAKAMOTO TOYS PLAZA NUNOA</h3>
+    <p>Horarios: </p>
+    <p>Lunes a Vernes de 10:00 a 20:00 Hrs</p>
+    <p>Sabados de 10:00 a 18:00 hrs</p>
+    
+  </div>
+  <!-- TIENDA NUMERO 5 -->
+  <div class="col-lg-4">
+    <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="" width="200">
+
+
+    <h3 class="fw-normal">SAKAMOTO TOYS CALAMA</h3>
+    <p>Horarios: </p>
+    <p>Lunes a Vernes de 10:00 a 20:00 Hrs</p>
+    <p>Sabados de 10:00 a 18:00 hrs</p>
+    
+  </div>
+  <!-- TIENDA NUMERO 6 -->
+  <div class="col-lg-4">
+    <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="" width="200">
+
+
+    <h3 class="fw-normal">SAKAMOTO TOYS ANTOFAGASTA</h3>
+    <p>Horarios: </p>
+    <p>Lunes a Vernes de 10:00 a 20:00 Hrs</p>
+    <p>Sabados de 10:00 a 18:00 hrs</p>
+    
+  </div>
+  <!-- TIENDA NUMERO 7 -->
+  <div class="col-lg-4">
+    <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="" width="200">
+
+
+    <h3 class="fw-normal">SAKAMOTO TOYS CONCEPCION</h3>
+    <p>Horarios: </p>
+    <p>Lunes a Vernes de 10:00 a 20:00 Hrs</p>
+    <p>Sabados de 10:00 a 18:00 hrs</p>
+    
   </div>
 </div>
- 
+
+<!--CARGAR ARRANQUE DE API DE MAPS JAVASCRIPT-->
+<head>
+<title> GOOGLE MAPS </title>
+  <style>
+  #map{ 
+    height: 400px;
+    width: 100%;
+
+  }
+  </style>
+</head>
+<body>
+  
+
+  <div id="map"></div>
+  <script>
+    function initMap(){
+      var map = new google.maps.Map(document.getElementById('map'),{
+        center: {lat: -33.44557, lng: -70.65424},
+        zoom: 11
+      })
+    }
+  </script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxau_lpuKtKBOxWzZA_UOVqnEBdVUx1h4&callback=initMap"></script>
+</body>
+
   <!-- FOOTER -->
   <footer class="container">
     <p class="float-end"><a href="#">Volver arriba</a></p>

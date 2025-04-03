@@ -10,8 +10,11 @@
     <link type="text/css" rel="stylesheet" href="{% static 'waggypetshop/css/config.css' %}">
     <style>
       .bodyseguimiento {
-          background-image: url('{% static "waggypetshop/images/seguimiento4.jpg" %}');
-          background-size: cover;
+    background-image: url('{% static "waggypetshop/images/sailor.jpg" %}');
+    background-size: 50% 90%;
+    background-repeat: no-repeat;
+    background-position: 70% 30%;
+          
       }
   </style>    
 </head>
@@ -19,7 +22,7 @@
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="{% url 'index' %}">
-        <img src="{% static 'waggypetshop/images/logo.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
+        <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -30,15 +33,15 @@
             <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
+            <a class="nav-link" href="{% url 'nosotros' %}">Preguntas</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Productos
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'perros' %}">Comida para perros</a></li>
-              <li><a class="dropdown-item" href="{% url 'gatos' %}">Comida para gatos</a></li>
+              <li><a class="dropdown-item" href="{% url 'perros' %}">Figuras</a></li>
+              <li><a class="dropdown-item" href="{% url 'gatos' %}">Vestuario</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="{% url 'otros' %}">Otros productos</a></li>
             </ul>
@@ -68,7 +71,7 @@
   </nav>
 
     <div class="container-segui">
-        <img src="{% static 'waggypetshop/images/logo.png' %}" alt="Logo" width="30" height="24" class="ico-logo" >
+        <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="130" height="64"  >
         <h5 style="padding-top: 10%; color: rgb(0, 0, 0);">
             SIGUE TU COMPRA CUANDO QUIERAS
         </h5>

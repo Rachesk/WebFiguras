@@ -16,10 +16,10 @@
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         }
         .inises {
-            background-image: url('{% static "waggypetshop/images/iniciosesion.jpg" %}');
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: cover;
+          background-image: url('{% static "waggypetshop/images/miku.jpg" %}');
+    background-size: 50% 75%;
+    background-repeat: no-repeat;
+    background-position: 20% 30%;
         }
     </style>
 </head>
@@ -27,7 +27,7 @@
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="{% url 'index' %}">
-        <img src="{% static 'waggypetshop/images/logo.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
+        <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -38,15 +38,15 @@
             <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
+            <a class="nav-link" href="{% url 'nosotros' %}">Preguntas</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Productos
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'perros' %}">Comida para perros</a></li>
-              <li><a class="dropdown-item" href="{% url 'gatos' %}">Comida para gatos</a></li>
+              <li><a class="dropdown-item" href="{% url 'perros' %}">Figuras</a></li>
+              <li><a class="dropdown-item" href="{% url 'gatos' %}">Vestuario</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="{% url 'otros' %}">Otros productos</a></li>
             </ul>

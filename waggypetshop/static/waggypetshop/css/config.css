@@ -1,3 +1,22 @@
+  /*CSS MAPS*/
+  #map {
+    height: 100%;
+  }
+  
+  /* 
+   * Optional: Makes the sample page fill the window. 
+   */
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  gmp-map {
+    height: 400px;
+  }
+  
   /* inicio sign in */
 
   html,
@@ -105,9 +124,9 @@ body {
     }
   }
   
-
+ /*CArousel*/
   .custom1-background {
-    background-image: url('https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2019/02/tienda-animales.jpg?tf=1200x');
+    background-image: url('https://www.geekz.cl/web/image/193443/00_pokepla-modelkit_bandai-hobby.jpg');
     background-size: cover;
     background-position: center; 
   }
@@ -120,7 +139,7 @@ body {
 
 
   .custom3-background {
-    background-image: url('https://www.semana.com/resizer/62vPuBRi1c5z6hkwnikPI7rKVwg=/1280x720/smart/filters:format(jpg):quality(80)/cloudfront-us-east-1.images.arcpublishing.com/semana/W5NSTUXPANHAFO4X2HAJ7PI3VM.jpg');
+    background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.nintendo.com%2Fes-cl%2Fstore%2Fproducts%2Ffitness-boxing-feat-hatsune-miku-switch%2F&psig=AOvVaw319agvxWZU6YJMsrJQj4nf&ust=1743711783124000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJi_ieKWuowDFQAAAAAdAAAAABBF');
     background-size: cover;
     background-position: center; 
   }
@@ -216,6 +235,8 @@ body {
 
 }
 
+
+
 /*Mensajes de errores*/
 .errores{
   -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3); 
@@ -238,6 +259,8 @@ body {
 .ico-logo {
   width: 130px; 
   height: 45px; 
+  
+  
 }
 
 .navbar-nav .nav-item {
@@ -310,10 +333,10 @@ margin-inline-end: auto;
 }
 
 .registerr{
-  background-image: url(IMG/register.jpg);
-  background-position: center center;
+  background-image: url(IMG/miku_fondo.jpg);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 50% 75%;
+  background-position: 20% 30%;
 }
 
 /*ACA SEGUIMIENTO*/

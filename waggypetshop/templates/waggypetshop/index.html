@@ -20,7 +20,7 @@
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="{% url 'index' %}">
-        <img src="{% static 'waggypetshop/images/logo.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
+        <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -31,15 +31,15 @@
             <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
+            <a class="nav-link" href="{% url 'nosotros' %}">Preguntas </a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Productos
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'perros' %}">Comida para perros</a></li>
-              <li><a class="dropdown-item" href="{% url 'gatos' %}">Comida para gatos</a></li>
+              <li><a class="dropdown-item" href="{% url 'perros' %}">Figuras</a></li>
+              <li><a class="dropdown-item" href="{% url 'gatos' %}">Vestuario</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="{% url 'otros' %}">Otros productos</a></li>
             </ul>
@@ -114,77 +114,96 @@
 
     <!-- Título -->
     <div class="container marketing">
-      <h2>Las marcas favoritas de tu mascota</h2>
+      <h2>Sorprendete con  los productos destacados</h2>
       <!-- CARD -->
       <div class="card-container">
         <div class="card">
-          <img class="card-img-top" src="{% static 'waggypetshop/images/royalcanin.jpg' %}" alt="Card image cap">
+          <img class="card-img-top" src="{% static 'waggypetshop/images/Polera.jpg' %}" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Royal Canin</h5>
-            <p class="card-text">Descubre la nutrición a medida para tu mascota con un solo clic.</p>
+            <h5 class="card-title">POLERA CATANA NEGRA BY VINCENT TRINIDAD NEGRA H.</h5>
+            <p class="card-text">¿Conoces la polera clásica de siempre? Este tipo de camiseta ¡nunca pasa de moda! Su corte recto, clásico y cómodo es perfecto para cualquier ocasión.</p>
             <a href="#" class="btn btn-light">Ver productos</a>
           </div>
         </div>
         <div class="card">
-          <img class="card-img-top" src="{% static 'waggypetshop/images/purina.jpg' %}" alt="Card image cap">
+          <img class="card-img-top" src="{% static 'waggypetshop/images/sailor.jpg' %}" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Purina</h5>
-            <p class="card-text">Conoce las diferentes variedades de alimento húmedo.</p>
+            <h5 class="card-title">SAILOR MOON ANIMATION COLOR S.H.FIGUARTS TAMASHII NATIONS</h5>
+            <p class="card-text">Diseñada con múltiples puntos de movimiento para recrear las poses más icónicas de Sailor Moon.Incluye colores fieles al diseño del anime clásico y...</p>
             <a href="#" class="btn btn-light">Ver productos</a>
           </div>
         </div>
         <div class="card">
-          <img class="card-img-top" src="{% static 'waggypetshop/images/pedigree.jpg' %}" alt="Card image cap">
+          <img class="card-img-top" src="{% static 'waggypetshop/images/lufypolera.jpg' %}" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Pedigree</h5>
-            <p class="card-text">Descubre nuestra gama de alimento seco</p>
+            <h5 class="card-title">POLERA GOMU GOMU BLANCA BY ILUSTRATA - GKZ</h5>
+            <p class="card-text">¿Conoces la polera clásica de siempre? Este tipo de camiseta ¡nunca pasa de moda! su corte recto, clásico y cómodo es perfecto para cualquier ocasión.Es por eso que te invitamos...</p>
             <a href="#" class="btn btn-light">Ver productos</a>
           </div>
         </div>
       </div>
       <!-- FIN DE CARD -->
 
-      <!-- INICIO DE FOTOS CON TEXTO "3" -->
-
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading fw-normal lh-1">Tu perro y tu salud mental <span class="text-body-secondary"></span></h2>
-          <p class="lead">Los perros y los humanos siempre han tenido una estrecha conexión, principalmente porque han evolucionado uno junto al otro con el tiempo.</p>
+      <!-- CARD  N2-->
+      <div class="card-container">
+        <div class="card">
+          <img class="card-img-top" src="{% static 'waggypetshop/images/Polera.jpg' %}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">POLERA CATANA NEGRA BY VINCENT TRINIDAD NEGRA H.</h5>
+            <p class="card-text">¿Conoces la polera clásica de siempre? Este tipo de camiseta ¡nunca pasa de moda! Su corte recto, clásico y cómodo es perfecto para cualquier ocasión.</p>
+            <a href="#" class="btn btn-light">Ver productos</a>
+          </div>
         </div>
-        <div class="col-md-5">
-          <img src="{% static 'waggypetshop/images/salud.jpg' %}" alt="">
+        <div class="card">
+          <img class="card-img-top" src="{% static 'waggypetshop/images/sailor.jpg' %}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">SAILOR MOON ANIMATION COLOR S.H.FIGUARTS TAMASHII NATIONS</h5>
+            <p class="card-text">Diseñada con múltiples puntos de movimiento para recrear las poses más icónicas de Sailor Moon.Incluye colores fieles al diseño del anime clásico y...</p>
+            <a href="#" class="btn btn-light">Ver productos</a>
+          </div>
         </div>
-      </div>
-
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-        <div class="col-md-7 order-md-1">
-          <h2 class="featurette-heading fw-normal lh-1">Estudio asegura que tener gatos como mascota aumentaría el riesgo de esquizofrenia <span class="text-body-secondary"></span></h2>
-          <p class="lead">Un polémico estudio establece que tener gatos como mascota podría aumentar el riesgo de padecer esquizofrenia, y el motivo sería por parásitos tóxicos al interior de los felinos.</p>
-        </div>
-        <div class="col-md-5 order-md-1">
-          <img src="{% static 'waggypetshop/images/gato.jpg' %}" alt="">
-        </div>
-      </div>
-
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading fw-normal lh-1">El cuidado de la salud de tu perro <span class="text-body-secondary"></span></h2>
-          <p class="lead">Un peso saludable es la clave para la salud y el bienestar de tu perro. Obtén más información sobre las cuatro formas sencillas de mantener a tu perro en un peso saludable y en buena forma.</p>
-        </div>
-        <div class="col-md-5">
-          <img src="{% static 'waggypetshop/images/perro2.png' %}" alt="">
+        <div class="card">
+          <img class="card-img-top" src="{% static 'waggypetshop/images/lufypolera.jpg' %}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">POLERA GOMU GOMU BLANCA BY ILUSTRATA - GKZ</h5>
+            <p class="card-text">¿Conoces la polera clásica de siempre? Este tipo de camiseta ¡nunca pasa de moda! su corte recto, clásico y cómodo es perfecto para cualquier ocasión.Es por eso que te invitamos...</p>
+            <a href="#" class="btn btn-light">Ver productos</a>
+          </div>
         </div>
       </div>
+      
 
-      <hr class="featurette-divider">
+      <!-- FIN DE CARD N2-->
+<!-- CARD  N3-->
+<div class="card-container">
+  <div class="card">
+    <img class="card-img-top" src="{% static 'waggypetshop/images/Polera.jpg' %}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">POLERA CATANA NEGRA BY VINCENT TRINIDAD NEGRA H.</h5>
+      <p class="card-text">¿Conoces la polera clásica de siempre? Este tipo de camiseta ¡nunca pasa de moda! Su corte recto, clásico y cómodo es perfecto para cualquier ocasión.</p>
+      <a href="#" class="btn btn-light">Ver productos</a>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="{% static 'waggypetshop/images/sailor.jpg' %}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">SAILOR MOON ANIMATION COLOR S.H.FIGUARTS TAMASHII NATIONS</h5>
+      <p class="card-text">Diseñada con múltiples puntos de movimiento para recrear las poses más icónicas de Sailor Moon.Incluye colores fieles al diseño del anime clásico y...</p>
+      <a href="#" class="btn btn-light">Ver productos</a>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="{% static 'waggypetshop/images/lufypolera.jpg' %}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">POLERA GOMU GOMU BLANCA BY ILUSTRATA - GKZ</h5>
+      <p class="card-text">¿Conoces la polera clásica de siempre? Este tipo de camiseta ¡nunca pasa de moda! su corte recto, clásico y cómodo es perfecto para cualquier ocasión.Es por eso que te invitamos...</p>
+      <a href="#" class="btn btn-light">Ver productos</a>
+    </div>
+  </div>
+</div>
 
-      <!-- FINAL DE FOTOS CON TEXTO "3" -->
+
+<!-- FIN DE CARD N3-->
 
     </div><!-- FINAL DE CONTAINER -->
 
