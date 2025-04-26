@@ -31,15 +31,15 @@
             <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'nosotros' %}">Preguntas </a>
+            <a class="nav-link" href="{% url 'preguntas' %}">Preguntas </a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Productos
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'perros' %}">Figuras</a></li>
-              <li><a class="dropdown-item" href="{% url 'gatos' %}">Vestuario</a></li>
+              <li><a class="dropdown-item" href="{% url 'figuras' %}">Figuras</a></li>
+              <li><a class="dropdown-item" href="{% url 'vestuario' %}">Vestuario</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="{% url 'otros' %}">Otros productos</a></li>
             </ul>

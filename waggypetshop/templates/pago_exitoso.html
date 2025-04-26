@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2>✅ ¡Pago exitoso!</h2>
+    <p>Gracias por tu compra.</p>
+    <p><strong>Orden:</strong> {{ response.buy_order }}</p>
+    <p><strong>Monto:</strong> ${{ response.amount }}</p>
+    <a href="{% url 'index' %}" class="btn btn-success mt-3">Volver al inicio</a>
+</div>
+{% endblock %}
