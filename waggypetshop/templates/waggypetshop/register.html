@@ -1,55 +1,41 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
-    <link type="text/css" rel="stylesheet" href="config.css">
-    <link rel="stylesheet" href="{% static 'waggypetshop/css/config.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <style>
-        .registerr{
-          background-image: url('{% static "waggypetshop/images/miku_regis.webp" %}');
-          
-          background-repeat: no-repeat;
-          background-size: 50% 80%;
-          background-position: 70% 50%;
-          
-        }      
-        body {
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        }
-        .errores {
-            display: none;
-            color: rgb(255, 255, 255);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro</title>
+  <link rel="stylesheet" href="{% static 'waggypetshop/css/config.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .registerr {
+      background-image: url('{% static "waggypetshop/images/miku_regis.webp" %}');
+      background-repeat: no-repeat;
+      background-size: 50% 80%;
+      background-position: 70% 50%;
+    }
+    body {
+      font-family: 'Trebuchet MS', Arial, sans-serif;
+    }
+  </style>
 </head>
-<body data-bs-theme="light" class="registerr">
+<body class="registerr">
+
+  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="{% url 'index' %}">
-        <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
+        <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll w-100 d-flex justify-content-between">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'preguntas' %}">Preguntas</a>
-          </li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'preguntas' %}">Preguntas</a></li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Productos
-            </a>
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Productos</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{% url 'figuras' %}">Figuras</a></li>
               <li><a class="dropdown-item" href="{% url 'vestuario' %}">Vestuario</a></li>
@@ -57,21 +43,11 @@
               <li><a class="dropdown-item" href="{% url 'otros' %}">Otros productos</a></li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'carrito' %}">Carrito</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'seguimiento' %}">Sigue tu compra</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link margen" href="{% url 'inicioSesion' %}">Inicia sesión</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Regístrate</a>
-          </li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}">Carrito</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'seguimiento' %}">Sigue tu compra</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'inicioSesion' %}">Inicia sesión</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Regístrate</a></li>
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="¿Qué buscas?" aria-label="Search">
@@ -81,91 +57,48 @@
     </div>
   </nav>
 
-<br>
-<br>
-<main class="form-container_register">
+  <!-- REGISTRO -->
+  <br><br>
+  <main class="form-container_register">
     <div class="form-card_register">
-        <h2 class="mb-4">Registro</h2>
-        <form>
-            <div class="mb-3">
-                <label for="username" class="form-label">Usuario:</label>
-                <input type="text" id="username" class="form-control" placeholder="Ingresa tu nombre de usuario" name="username">
-                <div id="mensaje1" class="errores">Es necesario el nombre de usuario</div>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" id="email" class="form-control" placeholder="Ingresa tu email" name="email">
-                <div id="mensaje2" class="errores">Es necesario el email</div>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Contraseña:</label>
-                <input type="password" id="password" class="form-control" placeholder="Ingresa tu contraseña" name="password">
-                <div id="mensaje3" class="errores">Es necesario la contraseña</div>
-            </div>
-            <div class="mb-3">
-                <label for="confirmPassword" class="form-label">Confirmar Contraseña:</label>
-                <input type="password" id="confirmPassword" class="form-control" placeholder="Confirma tu contraseña" name="confirmPassword">
-                <div id="mensaje4" class="errores">Las contraseñas no coinciden</div>
-            </div>
-            <div class="signup_link">
-                Ya tienes cuenta? <a href="{% url 'inicioSesion' %}" style="color: orange; text-decoration: none;">Iniciar sesion</a>
-            </div>
-            <button type="submit" id="bEnviar" class="btn btn-primary w-100 mt-3">Registrarse</button>
-        </form>
+      <h2 class="mb-4">Registro</h2>
+
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+
+      <form method="POST" action="{% url 'register' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="username" class="form-label">Usuario:</label>
+          <input type="text" id="username" class="form-control" name="username" placeholder="Ingresa tu nombre de usuario" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" id="email" class="form-control" name="email" placeholder="Ingresa tu email" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña:</label>
+          <input type="password" id="password" class="form-control" name="password" placeholder="Ingresa tu contraseña" required>
+        </div>
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Confirmar Contraseña:</label>
+          <input type="password" id="confirmPassword" class="form-control" name="password2" placeholder="Confirma tu contraseña" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mt-3">Registrarse</button>
+      </form>
     </div>
-</main>
+  </main>
 
-<!-- FOOTER -->
-<footer class="container mt-5">
+  <!-- FOOTER -->
+  <footer class="container mt-5">
     <p class="float-end"><a href="#">Volver arriba</a></p>
-    <p>&copy; 2017–2024 WAGGY'S Pet Shop, Inc. &middot; <a href="#">Privacidad</a> &middot; <a href="#">Terminos</a></p>
-</footer>
+    <p>&copy; 2017–2024 WAGGY'S Pet Shop, Inc. &middot; <a href="#">Privacidad</a> &middot; <a href="#">Términos</a></p>
+  </footer>
 
-<script>
-/* Script de JQUERY */
-$(document).ready(function() {
-    $("#bEnviar").click(function(e){
-        e.preventDefault();
-        var nombre = $("#username").val();
-        var email = $("#email").val();
-        var password = $("#password").val();
-        var confirmarPassword = $("#confirmPassword").val();
-
-        var valid = true;
-
-        if(nombre === ""){
-            $("#mensaje1").fadeIn();
-            valid = false;
-        } else {
-            $("#mensaje1").fadeOut();
-        }
-
-        if(email === ""){
-            $("#mensaje2").fadeIn();
-            valid = false;
-        } else {
-            $("#mensaje2").fadeOut();
-        }
-
-        if(password === ""){
-            $("#mensaje3").fadeIn();
-            valid = false;
-        } else {
-            $("#mensaje3").fadeOut();
-        }
-        /* CONFIRMAR CONTRASEÑA*/
-        if(confirmarPassword === "" || password !== confirmarPassword){
-            $("#mensaje4").fadeIn();
-            valid = false;
-        } else {
-            $("#mensaje4").fadeOut();
-        }
-
-        if(valid) {
-            alert('Registrado correctamente.');
-        }
-    });
-});
-</script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

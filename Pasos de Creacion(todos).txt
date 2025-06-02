@@ -1,0 +1,111 @@
+1 #Verificar version de Python = python --version
+
+2 #Crear entorno Virtual (VENV)= python -m venv myvenv    'myvenv' es el nombre de la carpeta que se creara
+
+3 # Ver el contenido de la carpeta (Direccion)= ls
+
+4 #Activar el entorno virtual = cd myvenv / cd Scripts / ./activate / cd.. / cd..
+
+5 #Actualizar PIP ( instalador de paquetes) = python -m pip install --upgrade pip
+
+6 #Crear archivo de paquetes requeridos para el proyecto.  El archivo se llama “requirements.txt” y adentro de el se agregan los paquete a instalar.Dentro del archivo TXT debe ir esto = " Django==4.1.2 "
+
+7 #instalar Django desde el archivo requirements.txt = pip install -r requirements.txt
+
+8 #Crear un proyecto “instituto = django-admin startproject instituto .     /Despues verificar con ls  / ls
+
+9 #Ejecutar servidor local para probar nuestros proyectos = python manage.py runserver
+#######COPIAR LINK HTTPS://00000..0..00.0
+
+/////////////AGREGAR APP AL PROYECTO PASOS////////////////
+
+1 #Activar nuestro entorno virtual y en la raíz de nuestro proyecto, debe estar a la vista el archivo “manage.py”, agregar la aplicación “alumnos” con la siguiente sentencia = python manage.py startapp alumnos
+
+2 #En instituto "settings.py" agregar 'alumnos' en la lista de "INSTALLED_APPS"
+
+3 #En instituto "URLS.PY" agregar path('alumnos/',include('alumnos.urls')) en "urlspatterns"
+
+4 #En alumnos crear una carpeta llamada "templates\alumnos" y dentro de ella crear un inde.html
+
+5 #En alumnos crear un urls.py con el siguiente contenido en ella = from django.conf.urls import url
+								from django.urls import path
+								from . import views
+
+							urlpatterns = [
+								path('index',views.index, name='index'),
+									]
+
+
+6 #En alumnos "views.py" agregar = def index(request):
+					context={}
+					return render(request,'alumnos/index.html',context)
+
+7 #Ejecutar el servidor Django = python manage.py runserver
+
+8 #Dtener servidor django = ctrl + c
+
+
+///////////////////CREACION DE MODELO "CLASE"////////////////////////////
+
+1 #Copiar esto en models.py class Genero(models.Model):
+    id_genero  = models.AutoField(db_column='idGenero', primary_key=True) 
+    genero     = models.CharField(max_length=20, blank=False, null=False)
+
+    def __str__(self):
+        return str(self.genero)
+
+
+2 # Copiar esto en models.py class Alumno(models.Model):
+    rut              = models.CharField(primary_key=True, max_length=10)
+    nombre           = models.CharField(max_length=20)
+    apellido_paterno = models.CharField(max_length=20)
+    apellido_materno = models.CharField(max_length=20)
+    fecha_nacimiento = models.DateField(blank=False, null=False) 
+    id_genero        = models.ForeignKey('Genero',on_delete=models.CASCADE, db_column='idGenero')  
+    telefono         = models.CharField(max_length=45)
+    email            = models.EmailField(unique=True, max_length=100, blank=True, null=True)
+    direccion        = models.CharField(max_length=50, blank=True, null=True)  
+    activo           = models.IntegerField()
+
+    def __str__(self):
+        return str(self.nombre)+" "+str(self.apellido_paterno)   
+
+3 # Volvamos a nuestro modelo, para que la aplicación pueda usar la tabla alumno primero debe “generarla”, hasta el momento es solo una definición. Para generar físicamente la tabla debe aplicar los siguientes comandos:
+
+python manage.py makemigrations
+python manage.py migrate
+
+
+
+
+Entonces, primero creamos las migraciones y luego migramos.
+
+
+
+4 #Para ingresar a la tabla alumno podemos usar el administrador de bases de datos de Django, para ello hay que crear un “Súper Usuario”.   A continuación, se indican los pasos para crear un Súper Usuario.
+
+Paso 1:   python manage.py createsuperuser
+Paso 2:   Username: admin
+Paso 3:   Email address: admin@example.com
+Paso 4:   Agregar contraseña
+
+
+
+
+5 #Ahora que tenemos un super usuario “admin” podemos ingresar a la administración de las bases de datos y buscar las tablas disponibles.  
+
+Primero debes ejecutar el servidor de Django:
+
+python manage.py runserver
+
+Luego debes ir a tu navegador y escribir la siguiente dirección:
+
+http://127.0.0.1:8000/admin/  
+
+
+
+Pasos para transbank
+######transbank####
+transbank-sdk
+pip install transbank-sdk
+python -m pip install --upgrade pip

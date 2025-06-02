@@ -3,213 +3,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link rel="stylesheet" href="{% static 'waggypetshop/css/config.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <style>
-      body {
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-      }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inicio</title>
+  <link rel="stylesheet" href="{% static 'waggypetshop/css/config.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body {
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+  </style>
 </head>
 <body data-bs-theme="light">
-  <!--NAV MENU NAVEGACION-->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'index' %}">
-        <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarScroll">
-        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll w-100 d-flex justify-content-between">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">
+      <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll w-100 d-flex justify-content-between">
+        <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'preguntas' %}">Preguntas</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Productos</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'figuras' %}">Figuras</a></li>
+            <li><a class="dropdown-item" href="{% url 'vestuario' %}">Vestuario</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'otros' %}">Otros productos</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}">Carrito</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'seguimiento' %}">Sigue tu compra</a></li>
+
+        {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Inicio</a>
+            <a class="nav-link disabled">Hola, {{ user.username }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'preguntas' %}">Preguntas </a>
+            <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Productos
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'figuras' %}">Figuras</a></li>
-              <li><a class="dropdown-item" href="{% url 'vestuario' %}">Vestuario</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="{% url 'otros' %}">Otros productos</a></li>
-            </ul>
-          </li>
+        {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'carrito' %}">Carrito</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'seguimiento' %}">Sigue tu compra</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link margen" href="{% url 'inicioSesion' %}">Inicia sesión</a>
+            <a class="nav-link" href="{% url 'inicioSesion' %}">Inicia sesión</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'register' %}">Regístrate</a>
           </li>
-        </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="¿Qué buscas?" aria-label="Search">
-          <button class="btn btn-outline-light" type="submit">Buscar</button>
-        </form>
-      </div>
-    </div>
-  </nav>
+        {% endif %}
+      </ul>
 
-  <!--CAROUSEL-->
-  <main>
-    <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active" style="background-image: url('https://www.geekz.cl/web/image/193443/00_pokepla-modelkit_bandai-hobby.jpg'); background-size: cover; background-position: center; height: 500px;">
-          <div class="container">
-            <div class="carousel-caption text-start">
-              <p><a class="btn btn-lg btn-light" href="#">Ver más</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item" style="background-image: url('https://www.geekz.cl/web/image/160585/luffy-yamato-one-piece-gamma-1-2-dragon-ball-kimetsu-no-yaiba-naruto-promo_1800px.jpg'); background-size: cover; background-position: center; height: 500px;">
-          <div class="container">
-            <div class="carousel-caption">
-              <p><a class="btn btn-lg btn-light" href="#">Ver más</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item " style="background-image: url('https://www.geekz.cl/web/image/179430/00_banner-prev-bandai.jpeg'); background-size: cover; background-position: center; height: 500px;">
-          <div class="container">
-            <div class="carousel-caption text-end">
-              <p><a class="btn btn-lg btn-light" href="#">Ver más</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-
-    <!-- Título -->
-    <div class="container marketing">
-      <h2>Sorprendete con  los productos destacados</h2>
-      <!-- CARD -->
-      <div class="card-container">
-        <div class="card">
-          <img class="card-img-top" src="{% static 'waggypetshop/images/Polera.jpg' %}" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">POLERA CATANA NEGRA BY VINCENT TRINIDAD NEGRA H.</h5>
-            <p class="card-text">¿Conoces la polera clásica de siempre? Este tipo de camiseta ¡nunca pasa de moda! Su corte recto, clásico y cómodo es perfecto para cualquier ocasión.</p>
-            <a href="#" class="btn btn-light">Ver productos</a>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="{% static 'waggypetshop/images/sailor.jpg' %}" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">SAILOR MOON ANIMATION COLOR S.H.FIGUARTS TAMASHII NATIONS</h5>
-            <p class="card-text">Diseñada con múltiples puntos de movimiento para recrear las poses más icónicas de Sailor Moon.Incluye colores fieles al diseño del anime clásico y...</p>
-            <a href="#" class="btn btn-light">Ver productos</a>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="{% static 'waggypetshop/images/lufypolera.jpg' %}" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">POLERA GOMU GOMU BLANCA BY ILUSTRATA - GKZ</h5>
-            <p class="card-text">¿Conoces la polera clásica de siempre? Este tipo de camiseta ¡nunca pasa de moda! su corte recto, clásico y cómodo es perfecto para cualquier ocasión.Es por eso que te invitamos...</p>
-            <a href="#" class="btn btn-light">Ver productos</a>
-          </div>
-        </div>
-      </div>
-      <!-- FIN DE CARD -->
-
-      <!-- CARD  N2-->
-      <div class="card-container">
-        <div class="card">
-          <img class="card-img-top" src="{% static 'waggypetshop/images/Polera.jpg' %}" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">POLERA CATANA NEGRA BY VINCENT TRINIDAD NEGRA H.</h5>
-            <p class="card-text">¿Conoces la polera clásica de siempre? Este tipo de camiseta ¡nunca pasa de moda! Su corte recto, clásico y cómodo es perfecto para cualquier ocasión.</p>
-            <a href="#" class="btn btn-light">Ver productos</a>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="{% static 'waggypetshop/images/sailor.jpg' %}" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">SAILOR MOON ANIMATION COLOR S.H.FIGUARTS TAMASHII NATIONS</h5>
-            <p class="card-text">Diseñada con múltiples puntos de movimiento para recrear las poses más icónicas de Sailor Moon.Incluye colores fieles al diseño del anime clásico y...</p>
-            <a href="#" class="btn btn-light">Ver productos</a>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="{% static 'waggypetshop/images/lufypolera.jpg' %}" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">POLERA GOMU GOMU BLANCA BY ILUSTRATA - GKZ</h5>
-            <p class="card-text">¿Conoces la polera clásica de siempre? Este tipo de camiseta ¡nunca pasa de moda! su corte recto, clásico y cómodo es perfecto para cualquier ocasión.Es por eso que te invitamos...</p>
-            <a href="#" class="btn btn-light">Ver productos</a>
-          </div>
-        </div>
-      </div>
-      
-
-      <!-- FIN DE CARD N2-->
-<!-- CARD  N3-->
-<div class="card-container">
-  <div class="card">
-    <img class="card-img-top" src="{% static 'waggypetshop/images/Polera.jpg' %}" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">POLERA CATANA NEGRA BY VINCENT TRINIDAD NEGRA H.</h5>
-      <p class="card-text">¿Conoces la polera clásica de siempre? Este tipo de camiseta ¡nunca pasa de moda! Su corte recto, clásico y cómodo es perfecto para cualquier ocasión.</p>
-      <a href="#" class="btn btn-light">Ver productos</a>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="¿Qué buscas?" aria-label="Buscar">
+        <button class="btn btn-outline-light" type="submit">Buscar</button>
+      </form>
     </div>
   </div>
-  <div class="card">
-    <img class="card-img-top" src="{% static 'waggypetshop/images/sailor.jpg' %}" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">SAILOR MOON ANIMATION COLOR S.H.FIGUARTS TAMASHII NATIONS</h5>
-      <p class="card-text">Diseñada con múltiples puntos de movimiento para recrear las poses más icónicas de Sailor Moon.Incluye colores fieles al diseño del anime clásico y...</p>
-      <a href="#" class="btn btn-light">Ver productos</a>
+</nav>
+
+<!-- CONTENIDO PRINCIPAL -->
+<main style="margin-top: 70px;">
+  <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
+    <!-- Indicadores -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+
+    <!-- Slides -->
+    <div class="carousel-inner">
+      <div class="carousel-item active" style="background-image: url('https://www.geekz.cl/web/image/193443/00_pokepla-modelkit_bandai-hobby.jpg'); background-size: cover; background-position: center; height: 500px;">
+        <div class="carousel-caption text-start">
+          <p><a class="btn btn-lg btn-light" href="#">Ver más</a></p>
+        </div>
+      </div>
+      <div class="carousel-item" style="background-image: url('https://www.geekz.cl/web/image/160585/luffy-yamato-one-piece-gamma-1-2-dragon-ball-kimetsu-no-yaiba-naruto-promo_1800px.jpg'); background-size: cover; background-position: center; height: 500px;">
+        <div class="carousel-caption">
+          <p><a class="btn btn-lg btn-light" href="#">Ver más</a></p>
+        </div>
+      </div>
+      <div class="carousel-item" style="background-image: url('https://www.geekz.cl/web/image/179430/00_banner-prev-bandai.jpeg'); background-size: cover; background-position: center; height: 500px;">
+        <div class="carousel-caption text-end">
+          <p><a class="btn btn-lg btn-light" href="#">Ver más</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controles -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Siguiente</span>
+    </button>
+  </div>
+
+  <!-- Tarjetas destacadas -->
+  <div class="container marketing mt-5">
+    <h2>Sorpréndete con los productos destacados</h2>
+
+    <div class="card-container d-flex flex-wrap gap-4 mt-4">
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'waggypetshop/images/Polera.jpg' %}" class="card-img-top" alt="Polera">
+        <div class="card-body">
+          <h5 class="card-title">POLERA CATANA NEGRA</h5>
+          <p class="card-text">Corte recto, clásico y cómodo. Perfecta para cualquier ocasión.</p>
+          <a href="#" class="btn btn-light">Ver productos</a>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'waggypetshop/images/sailor.jpg' %}" class="card-img-top" alt="Sailor Moon">
+        <div class="card-body">
+          <h5 class="card-title">SAILOR MOON FIGURA</h5>
+          <p class="card-text">Diseñada para recrear las poses más icónicas del anime clásico.</p>
+          <a href="#" class="btn btn-light">Ver productos</a>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+        <img src="{% static 'waggypetshop/images/lufypolera.jpg' %}" class="card-img-top" alt="Polera Luffy">
+        <div class="card-body">
+          <h5 class="card-title">POLERA GOMU GOMU</h5>
+          <p class="card-text">Clásica, cómoda y con diseño único para fanáticos de One Piece.</p>
+          <a href="#" class="btn btn-light">Ver productos</a>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="card">
-    <img class="card-img-top" src="{% static 'waggypetshop/images/lufypolera.jpg' %}" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">POLERA GOMU GOMU BLANCA BY ILUSTRATA - GKZ</h5>
-      <p class="card-text">¿Conoces la polera clásica de siempre? Este tipo de camiseta ¡nunca pasa de moda! su corte recto, clásico y cómodo es perfecto para cualquier ocasión.Es por eso que te invitamos...</p>
-      <a href="#" class="btn btn-light">Ver productos</a>
-    </div>
-  </div>
-</div>
 
+  <!-- Footer -->
+  <footer class="container mt-5">
+    <p class="float-end"><a href="#">Volver arriba</a></p>
+    <p>&copy; 2017–2024 WAGGY'S Pet Shop, Inc. · <a href="#">Privacidad</a> · <a href="#">Términos</a></p>
+  </footer>
+</main>
 
-<!-- FIN DE CARD N3-->
-
-    </div><!-- FINAL DE CONTAINER -->
-
-    <!-- FOOTER -->
-    <footer class="container">
-      <p class="float-end"><a href="#">Volver arriba</a></p>
-      <p>&copy; 2017–2024 WAGGY'S Pet Shop, Inc. &middot; <a href="#">Privacidad</a> &middot; <a href="#">Términos</a></p>
-    </footer>
-  </main>
-  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
