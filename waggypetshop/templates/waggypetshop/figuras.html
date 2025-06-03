@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Figuras</title>
+    <title>Vestuario</title>
     <link type="text/css" rel="stylesheet" href="config.css">
     <link rel="stylesheet" href="{% static 'waggypetshop/css/config.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -14,7 +14,8 @@
 <body data-bs-theme="light">
 <main>
     <header data-bs-theme="light">
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <!-- INICIO DE NAV -->
+       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="{% url 'index' %}">
       <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
@@ -64,78 +65,49 @@
     </div>
   </div>
 </nav>
+        <!-- FINAL DEL NAV -->
     </header>
     <div class="container">
         <br>
         <br>
-        <h1 style="text-align: center;">Nuestra amplia coleccion de figuras de accion </h1>
-        <p style="text-align: center;">Nuestra completa coleccion de figuras de tus animes favoritos</p>
+        <h1 style="text-align: center;">Nuestra amplia coleccion de Figuras</h1>
+        <p style="text-align: center;">Nuestra completa coleccion de Figuras de tus animes favoritos</p>
     </div>
     <hr class="featurette-divider">
     <!-- CARD -->
     <div class="container marketing">
-        <!-- CARD  PARA figuras -->
-        <div class="card-container">
-            <div class="card">
-                <img class="card-img-top" src="{% static 'waggypetshop/images/sailor.jpg' %}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">SAILOR MOON ANIMATION COLOR S.H.FIGUARTS TAMASHII </h5>
-                    <p class="card-text"><Fieldset>Figura de accion</Fieldset></p>
-                    <p class="card-text">$ 45.990</p>
-                    <a href="#" class="btn btn-light" onclick="addToCart('SAILOR MOON ANIMATION COLOR', 45990)">Comprar</a>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="{% static 'waggypetshop/images/sailor_mars.jpg' %}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">SAILOR MARS ANIMATION COLOR S.H.FIGUARTS TAMASHII NATIONS</h5>
-                    <p class="card-text">Figura de acccion</p>
-                    <p class="card-text">$ 25.990</p>
-                    <a href="#" class="btn btn-light" onclick="addToCart('SAILOR MARS ANIMATION', 25990)">Comprar</a>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="{% static 'waggypetshop/images/sailor jupiter.png' %}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Sailor Jupiter Animation Color S.H.Figuarts Tamashii Nations</h5>
-                    <p class="card-text">Figura de acccion</p>
-                    <p class="card-text">$ 21.990</p>
-                    <a href="#" class="btn btn-light" onclick="addToCart('Sailor Jupiter Animation', 21990)">Comprar</a>
-                </div>
-            </div>
-            <hr class="featurette-divider">
+        <!-- CARD PARA vestuario -->
+        <div class="container marketing">
+  <div class="row">
+    {% for producto in productos %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <img class="card-img-top" 
+            src="{% static 'waggypetshop/images/' %}{% if 'Sailor Jupiter Animation Color S.H.Figuarts Tamashii Nations' in producto.nombre %}sailor_jupiter.png
+            {% elif 'Narutop99' in producto.nombre or 'NARUTO' in producto.nombre %}naruto.jpg
+            {% elif 'SAILOR' in producto.nombre and 'MOON' in producto.nombre %}sailor.jpg
+            {% elif 'SAILOR' in producto.nombre and 'MARS' in producto.nombre %}sailor_mars.jpg
+            {% elif 'KAKASHI' in producto.nombre and 'HATAKE' in producto.nombre %}kakashi.jpg
+            {% elif 'CHOGOKIN' in producto.nombre or 'VALKYRIE' in producto.nombre %}meka.jpg
+            {% else %}figura_default.jpg{% endif %}"
+            alt="Imagen del producto">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ producto.nombre }}</h5>
+          <p class="card-text">{{ producto.descripcion }}</p>
+          <p class="card-text">Precio: ${{ producto.precio }}</p>
+          <p class="card-text"><strong>Stock disponible:</strong> {{ producto.stock }}</p>
+          <a href="#" class="btn btn-light"
+            onclick="addToCart('{{ producto.nombre|escapejs }}', {{ producto.precio|safe }}, {{ producto.id|safe }})">
+            Agregar al carrito
+          </a>
         </div>
-        <div class="card-container">
-            <div class="card">
-                <img class="card-img-top" src="{% static 'waggypetshop/images/kakashi.jpg' %}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">FIGURA ACCION KAKASHI HATAKE THE FAMED SHARINGAN HERO BANDAI</h5>
-                    <p class="card-text">Figura de acccion</p>
-                    <p class="card-text">$ 74.990</p>
-                    <a href="#" class="btn btn-light" onclick="addToCart('FIGURA ACCION KAKASHI HATAKE', 74990)">Comprar</a>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="{% static 'waggypetshop/images/naruto.jpg' %}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Naruto Uzumaki -Narutop99 Edition- S.H Figuarts Tamashii Nations</h5>
-                    <p class="card-text">Figura de acccion</p>
-                    <p class="card-text">$ 39.990</p>
-                    <a href="#" class="btn btn-light" onclick="addToCart('Naruto Uzumaki -Narutop99 Edition', 39990)">Comprar</a>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="{% static 'waggypetshop/images/meka.jpg' %}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">DX CHOGOKIN - TORNADO MESSIAH VALKYRIE ALTO SAOTOME USE REVIVAL</h5>
-                    <p class="card-text">Figura de acccion</p>
-                    <p class="card-text">$ 279.990</p>
-                    <a href="#" class="btn btn-light" onclick="addToCart('DX CHOGOKIN - TORNADO MESSIAH VALKYRIE', 274990)">Comprar</a>
-                </div>
-            </div>
-            <hr class="featurette-divider">
-        </div>
+      </div>
     </div>
+      {% empty %}
+      <p class="text-center">No hay figuras disponibles.</p>
+      {% endfor %}
+  </div>
+</div>
     <!-- FOOTER -->
     <footer class="container">
         <p class="float-end"><a href="#">Volver arriba</a></p>
@@ -143,13 +115,22 @@
     </footer>
 </main>
 <script>
-    function addToCart(name, price) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart.push({ name, price, quantity: 1 });
-        localStorage.setItem('cart', JSON.stringify(cart));
-        alert(`${name} ha sido añadido al carrito`);
+  function addToCart(nombre, precio, id) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let existing = cart.find(p => p.id === id);
+
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({ id: id, name: nombre, price: precio, quantity: 1 });
     }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`${nombre} fue agregado al carrito`);
+  }
 </script>
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
+
 </html>

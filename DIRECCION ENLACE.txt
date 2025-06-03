@@ -5,6 +5,14 @@ http://127.0.0.1:8000/admin/
  --para entrar al admin--
 
 
+ --------------------------------
+ EJECUTAR ESTE COMANDO 
+ 
+ python manage.py loaddata productos.json
+
+ con el archivo de los productos...
+
+
 
 
 

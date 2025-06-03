@@ -200,6 +200,14 @@ def editar_producto(request, producto_id):
 
     return render(request, 'waggypetshop/editar_producto.html', {'producto': producto})
 
+def vestuario(request):
+    productos = Producto.objects.filter(categoria="Polera manga corta")
+    return render(request, 'waggypetshop/vestuario.html', {'productos': productos})
+
+def figuras(request):
+    productos = Producto.objects.filter(categoria__icontains="Figura")
+    return render(request, 'waggypetshop/figuras.html', {'productos': productos})
+
 
 
 
