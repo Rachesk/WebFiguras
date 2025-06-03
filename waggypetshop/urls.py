@@ -21,4 +21,6 @@ urlpatterns = [
     path('bodeguero/editar/<int:producto_id>/', views.editar_producto, name='editar_producto'),
     path('contador/', views.vista_contador, name='contador'),
     path('bodeguero/agregar/', views.agregar_producto, name='agregar_producto'),
+    path('waggypetshop/bodeguero/eliminar/<int:producto_id>/', views.eliminar_producto, name='eliminar_producto'),
+    path('waggypetshop/historial/', views.historial_movimientos, name='historial'),
 ]

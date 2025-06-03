@@ -5,8 +5,9 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
-from .models import Producto
+from .models import Producto, MovimientoStock
 from .forms import ProductoForm
 
 from transbank.webpay.webpay_plus.transaction import Transaction
@@ -174,6 +175,8 @@ def agregar_producto(request):
         if form.is_valid():
             form.save()
             return redirect('rol_bodeguero')
+            nuevo_producto = form.save()
+            MovimientoStock.objects.create(producto=nuevo_producto, usuario=request.user, accion='CREACIÓN')
     else:
         form = ProductoForm()
 
@@ -196,6 +199,7 @@ def editar_producto(request, producto_id):
         producto.categoria = request.POST.get('categoria')
         producto.descripcion = request.POST.get('descripcion')
         producto.save()
+        MovimientoStock.objects.create(producto=producto, usuario=request.user, accion='EDICIÓN')
         return redirect('rol_bodeguero')
 
     return render(request, 'waggypetshop/editar_producto.html', {'producto': producto})
@@ -207,6 +211,21 @@ def vestuario(request):
 def figuras(request):
     productos = Producto.objects.filter(categoria__icontains="Figura")
     return render(request, 'waggypetshop/figuras.html', {'productos': productos})
+
+
+@login_required
+@user_passes_test(es_bodeguero)
+def eliminar_producto(request, producto_id):
+    producto = get_object_or_404(Producto, pk=producto_id)
+    producto.delete()
+    MovimientoStock.objects.create(producto=producto, usuario=request.user, accion='ELIMINACIÓN')
+    return redirect('rol_bodeguero')
+
+@login_required
+def historial_movimientos(request):
+    movimientos = MovimientoStock.objects.all().order_by('-fecha')
+    return render(request, 'waggypetshop/historial.html', {'movimientos': movimientos})
+
 
 
 
