@@ -48,6 +48,13 @@
           <li class="nav-item">
             <a class="nav-link disabled">Hola, {{ user.username }}</a>
           </li>
+          {% if user.is_authenticated %}
+            {% if user.groups.all.0.name == "Bodeguero" %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'rol_bodeguero' %}">Panel Bodeguero</a></li>
+            {% elif user.groups.all.0.name == "Contador" %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'rol_contador' %}">Panel Contador</a></li>
+            {% endif %}
+            {% endif %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
           </li>

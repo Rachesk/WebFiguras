@@ -1,6 +1,11 @@
 http://127.0.0.1:8000/waggypetshop/index
 
 
+http://127.0.0.1:8000/admin/
+ --para entrar al admin--
+
+
+
 
 
 

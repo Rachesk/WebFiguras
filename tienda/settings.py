@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'waggypetshop',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

@@ -109,3 +109,7 @@ Pasos para transbank
 transbank-sdk
 pip install transbank-sdk
 python -m pip install --upgrade pip
+
+
+esto es para el bodeguero 
+pip install django-widget-tweaks

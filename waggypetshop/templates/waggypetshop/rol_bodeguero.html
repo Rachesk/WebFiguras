@@ -1,0 +1,120 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel Bodeguero</title>
+  <link rel="stylesheet" href="{% static 'waggypetshop/css/config.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body {
+      font-family: 'Trebuchet MS', sans-serif;
+      padding-top: 70px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">
+      <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto navbar-nav-scroll w-100 d-flex justify-content-between">
+        <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}">Inicio</a></li>
+        {% if user.is_authenticated %}
+          <li class="nav-item"><a class="nav-link disabled">Hola, {{ user.username }}</a></li>
+          {% if user.groups.all.0.name == "Bodeguero" %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'rol_bodeguero' %}">Panel Bodeguero</a></li>
+          {% elif user.groups.all.0.name == "Contador" %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'rol_contador' %}">Panel Contador</a></li>
+          {% endif %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a></li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'inicioSesion' %}">Inicia sesión</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Regístrate</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Contenido Principal -->
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Panel del Bodeguero</h2>
+
+  <!-- Formulario centrado -->
+  <div class="row justify-content-center mb-5">
+    <div class="col-md-6">
+      <h4 class="mb-3 text-center">Agregar nuevo producto</h4>
+      <form method="POST" class="p-4 border rounded bg-light shadow-sm">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="id_nombre" class="form-label">Nombre</label>
+          {{ form.nombre|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+          <label for="id_descripcion" class="form-label">Descripción</label>
+          {{ form.descripcion|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+        <label for="id_precio" class="form-label">Precio</label>
+        {{ form.precio|add_class:"form-control"|attr:"type:number"|attr:"step:any" }}
+        </div>
+        <div class="mb-3">
+          <label for="id_stock" class="form-label">Stock</label>
+          {{ form.stock|add_class:"form-control" }}
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-success">Agregar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Tabla de productos -->
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Stock</th>
+        <th>Precio</th>
+        <th>Categoría</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for producto in productos %}
+      <tr>
+        <td>{{ producto.id }}</td>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.stock }}</td>
+        <td>${{ producto.precio }}</td>
+        <td>{{ producto.categoria|default:"Sin categoría" }}</td>
+        <td>
+          <a href="{% url 'editar_producto' producto.id %}" class="btn btn-sm btn-primary">Editar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="text-center">No hay productos registrados.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
+
+
