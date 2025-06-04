@@ -1,0 +1,120 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel Vendedor</title>
+  <link rel="stylesheet" href="{% static 'waggypetshop/css/config.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body {
+      font-family: 'Trebuchet MS', sans-serif;
+      padding-top: 70px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">
+      <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto navbar-nav-scroll w-100 d-flex justify-content-between">
+        <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}">Inicio</a></li>
+        {% if user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link disabled">Hola, {{ user.username }}</a></li>
+
+            {% with grupo=user.groups.all.0.name %}
+                {% if grupo == "Bodeguero" %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'rol_bodeguero' %}">Panel Bodeguero</a></li>
+                {% elif grupo == "Contador" %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'rol_contador' %}">Panel Contador</a></li>
+                {% elif grupo == "Vendedor" %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'vista_vendedor' %}">Panel Vendedor</a></li>
+                {% endif %}
+            {% endwith %}
+
+            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a></li>
+            {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'inicioSesion' %}">Inicia sesión</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Regístrate</a></li>
+            {% endif %}
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Contenido Principal -->
+    
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Panel del Vendedor</h2>
+    <p class="text-center">Visualiza el historial de ventas realizadas.</p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>Fecha</th>
+                    <th>Usuario</th>
+                    <th>Productos Vendidos</th>
+                    <th>Total Venta</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for venta in ventas %}
+                <tr>
+                    <td class="text-center">{{ venta.fecha|date:"d-m-Y H:i" }}</td>
+                    <td class="text-center">{{ venta.usuario.username }}</td>
+                    <td>
+                        <ul class="mb-0">
+                            {% for detalle in venta.detalles.all %}
+                            <li>{{ detalle.producto.nombre }} (x{{ detalle.cantidad }}) - ${{ detalle.precio }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td class="text-center">
+                        ${% with total=0 %}
+                        {% for detalle in venta.detalles.all %}
+                            {% with subtotal=detalle.precio|add:"0" %}
+                                {% with total=total|add:subtotal %}
+                                {% endwith %}
+                            {% endwith %}
+                        {% endfor %}
+                        {{ total }}
+                        {% endwith %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">No hay ventas registradas.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'index' %}" class="btn btn-outline-primary">Volver al Inicio</a>
+    </div>
+</div>
+{% endblock %}
+  
+</div>
+
+</body>
+</html>
+
+
+

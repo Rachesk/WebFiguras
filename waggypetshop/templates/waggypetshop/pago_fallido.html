@@ -1,0 +1,19 @@
+{% extends 'waggypetshop/base.html' %}
+
+{% block content %}
+<div class="container mt-5 pt-5">
+    <div class="alert alert-danger text-center">
+        <h2>Error en el Pago</h2>
+        <p>Lo sentimos, hubo un problema con tu transacción.</p>
+        
+        {% if error %}
+            <p class="text-muted">{{ error }}</p>
+        {% elif response %}
+            <p class="text-muted">Código de error: {{ response.response_code }}</p>
+            <p class="text-muted">Mensaje: {{ response.response_description }}</p>
+        {% endif %}
+        
+        <a href="{% url 'carrito' %}" class="btn btn-primary mt-4">Volver al carrito</a>
+    </div>
+</div>
+{% endblock %}

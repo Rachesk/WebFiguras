@@ -13,6 +13,18 @@ http://127.0.0.1:8000/admin/
  con el archivo de los productos...
 
 
+!!para probar el pago con la transbank...!!
+
+4051 8856 0044 6623  -> el numero de la tarjeta...
+CVV 123
+cualquier fecha de expiración
+
+en el rut pones 11.111.111-1
+clave -> 123
+
+
+
+
 
 
 

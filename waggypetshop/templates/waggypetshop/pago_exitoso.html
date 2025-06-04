@@ -1,0 +1,21 @@
+{% extends 'waggypetshop/base.html' %}
+
+{% block content %}
+<div class="container mt-5 pt-5">
+    <div class="alert alert-success text-center">
+        <h2>¡Pago Exitoso!</h2>
+        <p>Tu transacción ha sido completada correctamente.</p>
+        
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">Detalles de la compra</h5>
+                <p class="card-text">Número de orden: {{ venta.id }}</p>
+                <p class="card-text">Total: ${{ venta.total|floatformat:0 }}</p>
+                <p class="card-text">Fecha: {{ venta.fecha|date:"d/m/Y H:i" }}</p>
+            </div>
+        </div>
+        
+        <a href="{% url 'index' %}" class="btn btn-primary mt-4">Volver al inicio</a>
+    </div>
+</div>
+{% endblock %}

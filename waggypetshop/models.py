@@ -34,3 +34,57 @@ class MovimientoStock(models.Model):
 
     def __str__(self):
         return f"{self.producto.nombre} - {self.accion} - {self.fecha.strftime('%d-%m-%Y %H:%M')}"
+
+
+class Venta(models.Model):
+    fecha = models.DateTimeField(auto_now_add=True)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"Venta #{self.id} - {self.fecha.strftime('%d-%m-%Y %H:%M')}"
+
+class DetalleVenta(models.Model):
+    venta = models.ForeignKey(Venta, related_name='detalles', on_delete=models.CASCADE)
+    producto = models.ForeignKey('Producto', on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField()
+    precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def subtotal(self):
+        return self.cantidad * self.precio_unitario
+
+    def __str__(self):
+        return f"{self.producto.nombre} x {self.cantidad}"
+    
+
+class Carrito(models.Model):
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='carrito')
+
+    def __str__(self):
+        return f"Carrito de {self.usuario.username}"
+    
+class ItemCarrito(models.Model):
+    carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE, related_name='items')
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.cantidad}x {self.producto.nombre}"
+    
+class OrdenTransbank(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    buy_order = models.CharField(max_length=40, unique=True)
+    session_id = models.CharField(max_length=61)
+    amount = models.IntegerField()
+    token = models.CharField(max_length=64, blank=True, null=True)
+    status = models.CharField(max_length=20, default='CREATED')
+    respuesta_transbank = models.JSONField(null=True, blank=True)  # Campo nuevo
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"Orden {self.buy_order} - {self.amount}"
+    
+    class Meta:
+        verbose_name = "Orden Transbank"
+        verbose_name_plural = "Órdenes Transbank"
