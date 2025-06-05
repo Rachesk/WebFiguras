@@ -1,0 +1,200 @@
+[
+  {
+    "model": "waggypetshop.producto",
+    "pk": 1,
+    "fields": {
+      "nombre": "SAILOR MOON ANIMATION COLOR S.H.FIGUARTS TAMASHII",
+      "descripcion": "",
+      "precio": 46990,
+      "stock": 1,
+      "categoria": "Figura de acción"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 2,
+    "fields": {
+      "nombre": "Sailor Jupiter Animation Color S.H.Figuarts Tamashii Nations",
+      "descripcion": "",
+      "precio": 21990,
+      "stock": 1,
+      "categoria": "Figura de acción"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 3,
+    "fields": {
+      "nombre": "SAILOR MARS ANIMATION COLOR S.H.FIGUARTS TAMASHII NATIONS",
+      "descripcion": "",
+      "precio": 25990,
+      "stock": 1,
+      "categoria": "Figura de acción"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 4,
+    "fields": {
+      "nombre": "FIGURA ACCION KAKASHI HATAKE THE FAMED SHARINGAN HERO BANDAI",
+      "descripcion": "",
+      "precio": 74990,
+      "stock": 1,
+      "categoria": "Figura de acción"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 5,
+    "fields": {
+      "nombre": "Naruto Uzumaki -Narutop99 Edition- S.H Figuarts Tamashii Nations",
+      "descripcion": "",
+      "precio": 39990,
+      "stock": 1,
+      "categoria": "Figura de acción"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 6,
+    "fields": {
+      "nombre": "DX CHOGOKIN - TORNADO MESSIAH VALKYRIE ALTO SAOTOME USE REVIVAL",
+      "descripcion": "",
+      "precio": 279990,
+      "stock": 1,
+      "categoria": "Figura de acción"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 7,
+    "fields": {
+      "nombre": "POLERA CATURAI X BY VINCENT TRINIDAD",
+      "descripcion": "",
+      "precio": 14990,
+      "stock": 10,
+      "categoria": "Polera manga corta"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 8,
+    "fields": {
+      "nombre": "POLERA CHOPPER BLANCA - ONE PIECE",
+      "descripcion": "",
+      "precio": 14990,
+      "stock": 1,
+      "categoria": "Polera manga corta"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 9,
+    "fields": {
+      "nombre": "POLERA FRANKY BLANCA - ONE PIECE",
+      "descripcion": "",
+      "precio": 14990,
+      "stock": 5,
+      "categoria": "Polera manga corta"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 10,
+    "fields": {
+      "nombre": "POLERA KITTY TO THE PAST BLANCA BY ILUSTRATA",
+      "descripcion": "",
+      "precio": 14990,
+      "stock": 6,
+      "categoria": "Polera manga corta"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 11,
+    "fields": {
+      "nombre": "POLERA NAMI BLANCA - ONE PIECE",
+      "descripcion": "",
+      "precio": 14990,
+      "stock": 1,
+      "categoria": "Polera manga corta"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 12,
+    "fields": {
+      "nombre": "POLERA NICO ROBIN BLANCA - ONE PIECE",
+      "descripcion": "",
+      "precio": 14990,
+      "stock": 1,
+      "categoria": "Polera manga corta"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 13,
+    "fields": {
+      "nombre": "POKEMON MODEL KIT QUICK BULBASAUR BANDAI HOBBY",
+      "descripcion": "",
+      "precio": 8990,
+      "stock": 2,
+      "categoria": "Model Kit"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 14,
+    "fields": {
+      "nombre": "Model Kit Pokemon METAGROSS BANDAI HOBBY",
+      "descripcion": "",
+      "precio": 11990,
+      "stock": 4,
+      "categoria": "Model Kit"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 15,
+    "fields": {
+      "nombre": "Model Kit Pokemon Groudon Bandai Hobby",
+      "descripcion": "",
+      "precio": 10990,
+      "stock": 2,
+      "categoria": "Model Kit"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 16,
+    "fields": {
+      "nombre": "PIKACHU SITTING POSE POKEMON MODEL KIT QUICK!!",
+      "descripcion": "",
+      "precio": 6990,
+      "stock": 8,
+      "categoria": "Model Kit"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 17,
+    "fields": {
+      "nombre": "Model Kit Pokemon Slowpoke 15 Quick Bandai Hobby",
+      "descripcion": "",
+      "precio": 8990,
+      "stock": 6,
+      "categoria": "Model Kit"
+    }
+  },
+  {
+    "model": "waggypetshop.producto",
+    "pk": 18,
+    "fields": {
+      "nombre": "MODEL KIT QUICK!! 14 TEPIG POKÉMON bandai hobby",
+      "descripcion": "",
+      "precio": 9990,
+      "stock": 3,
+      "categoria": "Model Kit"
+    }
+  }
+]
