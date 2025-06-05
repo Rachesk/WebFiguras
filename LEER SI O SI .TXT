@@ -11,6 +11,14 @@ python manage.py createsuperuser
 
 --------------------------------
 
+hay que importar la bd 
+
+python manage.py loaddata productos_completos.json
+
+ES EL ULTIMO ARCHIVO 
+
+--------------------------------
+
 user: admin
 clave : 1234
 
