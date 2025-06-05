@@ -45,6 +45,10 @@ Tenemos vistas para
 para crear una cuenta como bodeguero si o si debemos agregar la palabra bodeguero al comienzo... por ejemplo "bodeguero1" , "bodeguero2".
 Lo mismo para el contador y el vendedor
 
+SI O SI HAY QUE LOGUEARSE PARA AGREGAR ALGO EN EL CARRITO...
+
+PARA ACCEDER AL PANEL DE BODEGUERO, CONTADOR  Y VENDEDOR SIEMPRE TIENE QUE SER DESDE EL INICIO!!
+
 ----------------------------------
 !!para probar el pago con la transbank...!!
 
