@@ -1,22 +1,17 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vestuario</title>
-    <link type="text/css" rel="stylesheet" href="config.css">
-    <link rel="stylesheet" href="{% static 'waggypetshop/css/config.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vestuario</title>
+  <link rel="stylesheet" href="{% static 'waggypetshop/css/config.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body data-bs-theme="light">
-<main>
-    <header data-bs-theme="light">
-        <!-- INICIO DE NAV -->
-       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <!-- Tu navbar existente -->
+   <div class="container-fluid">
     <a class="navbar-brand" href="{% url 'index' %}">
       <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
     </a>
@@ -65,74 +60,123 @@
     </div>
   </div>
 </nav>
-        <!-- FINAL DEL NAV -->
-    </header>
-    <div class="container">
-        <br>
-        <br>
-        <h1 style="text-align: center;">Nuestra amplia coleccion de poleras</h1>
-        <p style="text-align: center;">Nuestra completa coleccion de poleras de tus animes favoritos</p>
-    </div>
-    <hr class="featurette-divider">
-    <!-- CARD -->
-    <div class="container marketing">
-        <!-- CARD PARA vestuario -->
-        <div class="container marketing">
+
+<main class="container mt-5 pt-5">
+  <h1 class="text-center">Nuestra amplia colección de poleras</h1>
+  <p class="text-center">Inspiradas en tus animes favoritos</p>
+  <hr>
   <div class="row">
     {% for producto in productos %}
     <div class="col-md-4 mb-4">
       <div class="card h-100">
-        <img class="card-img-top" 
-            src="{% static 'waggypetshop/images/' %}{% if 'CHOPPER' in producto.nombre %}polera2.jpg
-            {% elif 'CATURAI' in producto.nombre %}polera.jpg
-            {% elif 'FRANKY' in producto.nombre %}polera3.jpg
-            {% elif 'KITTY' in producto.nombre %}polera4.jpg
-            {% elif 'NAMI' in producto.nombre %}polera5.jpg
-            {% elif 'NICO' in producto.nombre %}polera6.jpg
-            {% else %}polera1.jpg{% endif %}" 
-            alt="Imagen del producto">
+        <img class="card-img-top" src="{% static 'waggypetshop/images/' %}{% if 'CHOPPER' in producto.nombre %}polera2.jpg{% elif 'CATURAI' in producto.nombre %}polera.jpg{% elif 'FRANKY' in producto.nombre %}polera3.jpg{% elif 'KITTY' in producto.nombre %}polera4.jpg{% elif 'NAMI' in producto.nombre %}polera5.jpg{% elif 'NICO' in producto.nombre %}polera6.jpg{% else %}polera1.jpg{% endif %}" alt="Imagen del producto">
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">{{ producto.nombre }}</h5>
           <p class="card-text">{{ producto.descripcion }}</p>
           <p class="card-text">Precio: ${{ producto.precio }}</p>
-          <p class="card-text"><strong>Stock disponible:</strong> {{ producto.stock }}</p>
-          <a href="#" class="btn btn-light"
-              onclick="addToCart('{{ producto.nombre|escapejs }}', {{ producto.precio|safe }}, {{ producto.id|safe }})">  <!--IGNORAR ESTA LINEA -->.
-              Agregar al carrito
-            </a>
-
+          <p class="card-text {% if producto.stock <= 0 %}stock-agotado{% elif producto.stock < 5 %}stock-bajo{% else %}stock-disponible{% endif %}">
+            <strong>Stock:</strong> 
+            {% if producto.stock <= 0 %}
+              Agotado
+            {% else %}
+              {{ producto.stock }} disponible{{ producto.stock|pluralize }}
+            {% endif %}
+          </p>
+          <button onclick="addToCart({{ producto.id }})" 
+                  class="btn btn-light mt-auto {% if producto.stock <= 0 %}btn-disabled{% endif %}" 
+                  {% if producto.stock <= 0 %}disabled{% endif %}>
+            {% if producto.stock <= 0 %}Agotado{% else %}Agregar al carrito{% endif %}
+          </button>
         </div>
       </div>
     </div>
-    
     {% empty %}
-    <p class="text-center">No hay productos de vestuario disponibles.</p>
+      <p class="text-center">No hay productos disponibles.</p>
     {% endfor %}
   </div>
-</div>
-    <!-- FOOTER -->
-    <footer class="container">
-        <p class="float-end"><a href="#">Volver arriba</a></p>
-        <p>&copy; 2017–2024 WAGGY'S Pet Shop, Inc. &middot; <a href="#">Privacidad</a> &middot; <a href="#">Términos</a></p>
-    </footer>
 </main>
+
+<footer class="container mt-5">
+  <p class="float-end"><a href="#">Volver arriba</a></p>
+  <p>&copy; 2024 Waggy's Pet Shop</p>
+</footer>
+
 <script>
-  function addToCart(nombre, precio, id) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    let existing = cart.find(p => p.id === id);
-
-    if (existing) {
-      existing.quantity += 1;
-    } else {
-      cart.push({ id: id, name: nombre, price: precio, quantity: 1 });
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
     }
+    return cookieValue;
+  }
 
-    localStorage.setItem('cart', JSON.stringify(cart));
-    alert(`${nombre} fue agregado al carrito`);
+  function showAlert(type, message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type}`;
+    alertDiv.textContent = message;
+    
+    document.body.appendChild(alertDiv);
+    
+    setTimeout(() => {
+      alertDiv.remove();
+    }, 3000);
+  }
+
+  function addToCart(productoId) {
+    const btn = event.target;
+    if (btn.disabled) return;
+    
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Procesando...';
+
+    fetch("{% url 'agregar_al_carrito' %}", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken")
+      },
+      body: JSON.stringify({ producto_id: productoId, cantidad: 1 })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        showAlert('success', data.mensaje);
+        updateCartCount();
+      } else {
+        showAlert('error', data.mensaje);
+      }
+    })
+    .catch(error => {
+      showAlert('error', 'Error al comunicarse con el servidor');
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.textContent = 'Agregar al carrito';
+    });
+  }
+
+  function updateCartCount() {
+    const countElement = document.querySelector('#cart-count');
+    if (countElement) {
+      fetch("{% url 'carrito' %}")
+      .then(response => response.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const newCount = doc.querySelector('#cart-count').textContent;
+        countElement.textContent = newCount;
+      });
+    }
   }
 </script>
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
-
 </html>

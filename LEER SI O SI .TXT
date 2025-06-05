@@ -1,0 +1,53 @@
+cuando le damos en python manage.py runserver tenemos que 
+abrir este link : http://127.0.0.1:8000/waggypetshop/index
+
+---------------------------------
+python manage.py createsuperuser
+
+# Datos solicitados:
+# Username: admin
+# Email: admin@example.com
+# Password: ********
+
+--------------------------------
+
+user: admin
+clave : 1234
+
+http://127.0.0.1:8000/admin/
+
+---------------------------------
+Plugins a instalar
+
+//TRANSBANK 
+
+pip install transbank-sdk
+python -m pip install --upgrade pip
+
+//del bodeguero
+pip install django-widget-tweaks
+----------------------------------
+
+Tenemos vistas para 
+-Bodeguero 
+-Contador
+-Vendedor
+-Admin
+
+para crear una cuenta como bodeguero si o si debemos agregar la palabra bodeguero al comienzo... por ejemplo "bodeguero1" , "bodeguero2".
+Lo mismo para el contador y el vendedor
+
+----------------------------------
+!!para probar el pago con la transbank...!!
+
+4051 8856 0044 6623  -> el numero de la tarjeta...
+CVV 123                                 -- esta es para transacciones aprobadas...
+cualquier fecha de expiración
+
+en el rut pones 11.111.111-1
+clave -> 123
+
+5186 0595 5959 0568             -- para transacciones rechazadas
+CVV 123
+cualquier fecha de expiración
+--------------------------------

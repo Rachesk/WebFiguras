@@ -103,6 +103,10 @@
         <td>{{ producto.categoria|default:"Sin categoría" }}</td>
         <td>
           <a href="{% url 'editar_producto' producto.id %}" class="btn btn-sm btn-primary">Editar</a>
+          <a href="{% url 'eliminar_producto' producto.id %}" class="btn btn-sm btn-danger"
+          onclick="return confirm('¿Estás seguro de que quieres eliminar este producto?');">
+          Eliminar
+          </a>
         </td>
       </tr>
       {% empty %}
@@ -112,6 +116,8 @@
       {% endfor %}
     </tbody>
   </table>
+
+  <a class="btn btn-info" href="{% url 'historial' %}">Ver historial de movimientos</a>
 </div>
 
 </body>

@@ -43,18 +43,29 @@
         <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}">Carrito</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'seguimiento' %}">Sigue tu compra</a></li>
-
         {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link disabled">Hola, {{ user.username }}</a>
-          </li>
-          {% if user.is_authenticated %}
-            {% if user.groups.all.0.name == "Bodeguero" %}
-              <li class="nav-item"><a class="nav-link" href="{% url 'rol_bodeguero' %}">Panel Bodeguero</a></li>
-            {% elif user.groups.all.0.name == "Contador" %}
-              <li class="nav-item"><a class="nav-link" href="{% url 'rol_contador' %}">Panel Contador</a></li>
-            {% endif %}
-            {% endif %}
+  <li class="nav-item">
+    <a class="nav-link disabled">Hola, {{ user.username }}</a>
+  </li>
+
+          {% if user.is_superuser %}
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/">Panel Admin</a>
+            </li>
+          {% elif user.groups.all.0.name == "Bodeguero" %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'rol_bodeguero' %}">Panel Bodeguero</a>
+            </li>
+          {% elif user.groups.all.0.name == "Contador" %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'rol_contador' %}">Panel Contador</a>
+            </li>
+          {% elif user.groups.all.0.name == "Vendedor" %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'vista_vendedor' %}">Panel Vendedor</a>
+            </li>
+          {% endif %}
+
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
           </li>
@@ -66,6 +77,7 @@
             <a class="nav-link" href="{% url 'register' %}">Regístrate</a>
           </li>
         {% endif %}
+        
       </ul>
 
       <form class="d-flex" role="search">
