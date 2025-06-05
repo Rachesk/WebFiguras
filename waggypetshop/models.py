@@ -53,6 +53,9 @@ class Venta(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     total = models.DecimalField(max_digits=10, decimal_places=2)
 
+    def calcular_total(self):
+        return sum(detalle.subtotal() for detalle in self.detalles.all())
+
     def __str__(self):
         return f"Venta #{self.id} - {self.fecha.strftime('%d-%m-%Y %H:%M')}"
 

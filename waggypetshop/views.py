@@ -11,13 +11,14 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 import json
 from django.core.serializers.json import DjangoJSONEncoder
-import datetime
+from datetime import datetime
 
 from .forms import ProductoForm
 
 import random
 import string
 from django.utils import timezone
+from django.db.models import Sum, F, FloatField
 
 from transbank.webpay.webpay_plus.transaction import Transaction, WebpayOptions
 from transbank.common.integration_commerce_codes import IntegrationCommerceCodes
@@ -314,25 +315,39 @@ def panel_bodeguero(request):
     return render(request, 'waggypetshop/rol_bodeguero.html', {'form': form, 'productos': productos})
 
 @login_required
+@user_passes_test(es_vendedor)
+def vista_vendedor(request):
+    ventas = Venta.objects.select_related('usuario').prefetch_related('detalles__producto').order_by('-fecha')
+
+    fecha_inicio = request.GET.get('fecha_inicio')
+    fecha_fin = request.GET.get('fecha_fin')
+
+    if fecha_inicio:
+        ventas = ventas.filter(fecha__date__gte=fecha_inicio)
+    if fecha_fin:
+        ventas = ventas.filter(fecha__date__lte=fecha_fin)
+
+    # Calcular total vendido para las ventas filtradas
+    total_vendido = DetalleVenta.objects.filter(venta__in=ventas).aggregate(
+        total=Sum(F('cantidad') * F('precio_unitario'), output_field=FloatField())
+    )['total'] or 0
+
+    return render(request, 'waggypetshop/vendedor.html', {
+        'ventas': ventas,
+        'fecha_inicio': fecha_inicio,
+        'fecha_fin': fecha_fin,
+        'total_vendido': total_vendido
+    })
+
+@login_required
 @user_passes_test(es_contador)
-def vista_contador(request):
-    estado_filtro = request.GET.get('estado')  # puede ser 'AUTHORIZED', 'FAILED', etc.
-
-    if estado_filtro:
-        pagos = OrdenTransbank.objects.filter(status=estado_filtro).order_by('-fecha_creacion')
-    else:
-        pagos = OrdenTransbank.objects.all().order_by('-fecha_creacion')
-
-    total_ventas = sum(p.amount for p in pagos)
-    total_transacciones = pagos.count()
-    ganancias_netas = total_ventas * 0.8  # ejemplo
+def rol_contador(request):
+    ventas = Venta.objects.all().order_by('-fecha')
+    total_ventas = ventas.aggregate(total=Sum('total'))['total'] or 0
 
     return render(request, 'waggypetshop/rol_contador.html', {
-        'pagos': pagos,
-        'total_ventas': total_ventas,
-        'total_transacciones': total_transacciones,
-        'ganancias_netas': ganancias_netas,
-        'estado_filtro': estado_filtro
+        'ventas': ventas,
+        'total_ventas': total_ventas
     })
 
 
@@ -378,11 +393,6 @@ def historial_movimientos(request):
     movimientos = MovimientoStock.objects.all().order_by('-fecha')
     return render(request, 'waggypetshop/historial.html', {'movimientos': movimientos})
 
-@login_required
-@user_passes_test(es_vendedor)
-def vista_vendedor(request):
-    ventas = Venta.objects.select_related('usuario').prefetch_related('detalles__producto').order_by('-fecha')
-    return render(request, 'waggypetshop/vendedor.html', {'ventas': ventas})
 
 @require_POST
 @login_required
