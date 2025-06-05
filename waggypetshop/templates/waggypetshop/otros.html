@@ -4,21 +4,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Otros productos</title>
+  <title>Model Kits</title>
   <link rel="stylesheet" href="{% static 'waggypetshop/css/config.css' %}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body data-bs-theme="light">
+<!-- Navbar -->
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="{% url 'index' %}">
-      <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32">
+      <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarScroll">
-      <ul class="navbar-nav me-auto w-100 d-flex justify-content-between">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll w-100 d-flex justify-content-between">
         <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}">Inicio</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'preguntas' %}">Preguntas</a></li>
         <li class="nav-item dropdown">
@@ -33,14 +35,24 @@
         <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}">Carrito</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'seguimiento' %}">Sigue tu compra</a></li>
+
         {% if user.is_authenticated %}
-          <li class="nav-item"><a class="nav-link disabled">Hola, {{ user.username }}</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a></li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Hola, {{ user.username }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
+          </li>
         {% else %}
-          <li class="nav-item"><a class="nav-link" href="{% url 'inicioSesion' %}">Inicia sesión</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Regístrate</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'inicioSesion' %}">Inicia sesión</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Regístrate</a>
+          </li>
         {% endif %}
       </ul>
+
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="¿Qué buscas?" aria-label="Buscar">
         <button class="btn btn-outline-light" type="submit">Buscar</button>
@@ -52,7 +64,6 @@
 <main class="container mt-5 pt-5">
   <h1 class="text-center">Model Kits de Pokémon</h1>
   <p class="text-center">Modelos de armado rápido y entretenido para todas las edades</p>
-
   <hr>
   <div class="row">
     {% for producto in productos %}
@@ -71,8 +82,19 @@
           <h5 class="card-title">{{ producto.nombre }}</h5>
           <p class="card-text">{{ producto.descripcion }}</p>
           <p class="card-text">Precio: ${{ producto.precio }}</p>
-          <p class="card-text"><strong>Stock disponible:</strong> {{ producto.stock }}</p>
-          <a href="#" class="btn btn-light mt-auto" onclick="addToCart({{ producto.id }})">Agregar al carrito</a>
+          <p class="card-text {% if producto.stock <= 0 %}stock-agotado{% elif producto.stock < 5 %}stock-bajo{% else %}stock-disponible{% endif %}">
+            <strong>Stock:</strong> 
+            {% if producto.stock <= 0 %}
+              Agotado
+            {% else %}
+              {{ producto.stock }} disponible{{ producto.stock|pluralize }}
+            {% endif %}
+          </p>
+          <button onclick="addToCart({{ producto.id }})" 
+                  class="btn btn-light mt-auto {% if producto.stock <= 0 %}btn-disabled{% endif %}" 
+                  {% if producto.stock <= 0 %}disabled{% endif %}>
+            {% if producto.stock <= 0 %}Agotado{% else %}Agregar al carrito{% endif %}
+          </button>
         </div>
       </div>
     </div>
@@ -87,26 +109,8 @@
   <p>&copy; 2024 Waggy's Pet Shop</p>
 </footer>
 
-<script>
-  function addToCart(productoId) {
-    fetch("{% url 'agregar_al_carrito' %}", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": getCookie("csrftoken")
-      },
-      body: JSON.stringify({ producto_id: productoId, cantidad: 1 })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        alert(data.mensaje);
-      } else {
-        alert("Error al agregar el producto: " + data.mensaje);
-      }
-    });
-  }
 
+<script>
   function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -120,6 +124,65 @@
       }
     }
     return cookieValue;
+  }
+
+  function showAlert(type, message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type}`;
+    alertDiv.textContent = message;
+    
+    document.body.appendChild(alertDiv);
+    
+    setTimeout(() => {
+      alertDiv.remove();
+    }, 3000);
+  }
+
+  function addToCart(productoId) {
+    const btn = event.target;
+    if (btn.disabled) return;
+    
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Procesando...';
+
+    fetch("{% url 'agregar_al_carrito' %}", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken")
+      },
+      body: JSON.stringify({ producto_id: productoId, cantidad: 1 })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        showAlert('success', data.mensaje);
+        updateCartCount();
+      } else {
+        showAlert('error', data.mensaje);
+      }
+    })
+    .catch(error => {
+      showAlert('error', 'Error al comunicarse con el servidor');
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.textContent = 'Agregar al carrito';
+    });
+  }
+
+  function updateCartCount() {
+    const countElement = document.querySelector('#cart-count');
+    if (countElement) {
+      fetch("{% url 'carrito' %}")
+      .then(response => response.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const newCount = doc.querySelector('#cart-count').textContent;
+        countElement.textContent = newCount;
+      });
+    }
   }
 </script>
 

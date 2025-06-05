@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,121 +10,183 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body data-bs-theme="light">
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'index' %}">
-        <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarScroll">
-        <ul class="navbar-nav me-auto w-100 d-flex justify-content-between">
-          <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'preguntas' %}">Preguntas</a></li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Productos</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'figuras' %}">Figuras</a></li>
-              <li><a class="dropdown-item" href="{% url 'vestuario' %}">Vestuario</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="{% url 'otros' %}">Otros productos</a></li>
-            </ul>
-          </li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}">Carrito</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'seguimiento' %}">Sigue tu compra</a></li>
-          {% if user.is_authenticated %}
-            <li class="nav-item"><a class="nav-link disabled">Hola, {{ user.username }}</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a></li>
-          {% else %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'inicioSesion' %}">Inicia sesión</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Regístrate</a></li>
-          {% endif %}
-        </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="¿Qué buscas?" aria-label="Buscar">
-          <button class="btn btn-outline-light" type="submit">Buscar</button>
-        </form>
-      </div>
-    </div>
-  </nav>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">
+      <img src="{% static 'waggypetshop/images/foto_sakamoto.png' %}" alt="Logo" width="40" height="32" class="ico-logo"> 
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <!-- CONTENIDO -->
-  <main class="container mt-5 pt-5">
-    <h1 class="text-center">Nuestra colección de Figuras</h1>
-    <p class="text-center">Encuentra tus personajes favoritos de anime</p>
-    <hr>
-    <div class="row">
-      {% for producto in productos %}
-      <div class="col-md-4 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top"
-               src="{% static 'waggypetshop/images/' %}{% if 'SAILOR' in producto.nombre|upper %}sailor.jpg
-                    {% elif 'Sailor Jupiter Animation Color S.H.Figuarts Tamashii Nations' in producto.nombre|upper %}sailor_jupiter.png
-                    {% elif 'SAILOR MARS ANIMATION COLOR S.H.FIGUARTS TAMASHII NATIONS' in producto.nombre|upper %}sailor_mars.jpg
-                    {% elif 'KAKASHI' in producto.nombre|upper %}kakashi.jpg
-                    {% elif 'NARUTO' in producto.nombre|upper %}naruto.jpg
-                    {% elif 'CHOGOKIN' in producto.nombre|upper %}meka.jpg
-                    {% else %}figura_default.jpg{% endif %}"
-               alt="Imagen del producto">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">{{ producto.nombre }}</h5>
-            <p class="card-text">{{ producto.descripcion }}</p>
-            <p class="card-text">Precio: ${{ producto.precio }}</p>
-            <p class="card-text"><strong>Stock disponible:</strong> {{ producto.stock }}</p>
-            <a href="#" class="btn btn-light mt-auto" onclick="addToCart({{ producto.id }})">Agregar al carrito</a>
-          </div>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll w-100 d-flex justify-content-between">
+        <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'preguntas' %}">Preguntas</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Productos</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'figuras' %}">Figuras</a></li>
+            <li><a class="dropdown-item" href="{% url 'vestuario' %}">Vestuario</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'otros' %}">Otros productos</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}">Carrito</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'seguimiento' %}">Sigue tu compra</a></li>
+
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link disabled">Hola, {{ user.username }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'inicioSesion' %}">Inicia sesión</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Regístrate</a>
+          </li>
+        {% endif %}
+      </ul>
+
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="¿Qué buscas?" aria-label="Buscar">
+        <button class="btn btn-outline-light" type="submit">Buscar</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<main class="container mt-5 pt-5">
+  <h1 class="text-center">Nuestra colección de Figuras</h1>
+  <p class="text-center">Encuentra tus personajes favoritos de anime</p>
+  <hr>
+  <div class="row">
+    {% for producto in productos %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <img class="card-img-top"
+             src="{% static 'waggypetshop/images/' %}{% if 'SAILOR MARS' in producto.nombre|upper %}sailor_mars.jpg
+                  {% elif 'SAILOR JUPITER' in producto.nombre|upper %}sailor_jupiter.png
+                  {% elif 'SAILOR' in producto.nombre|upper %}sailor.jpg
+                  {% elif 'KAKASHI' in producto.nombre|upper %}kakashi.jpg
+                  {% elif 'NARUTO' in producto.nombre|upper %}naruto.jpg
+                  {% elif 'CHOGOKIN' in producto.nombre|upper %}meka.jpg
+                  {% else %}figura_default.jpg{% endif %}"
+             alt="Imagen del producto">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ producto.nombre }}</h5>
+          <p class="card-text">{{ producto.descripcion }}</p>
+          <p class="card-text">Precio: ${{ producto.precio|intcomma }}</p>
+          <p class="card-text {% if producto.stock <= 0 %}stock-agotado{% elif producto.stock < 5 %}stock-bajo{% else %}stock-disponible{% endif %}">
+            <strong>Stock:</strong> 
+            {% if producto.stock <= 0 %}
+              Agotado
+            {% else %}
+              {{ producto.stock }} disponible{{ producto.stock|pluralize }}
+            {% endif %}
+          </p>
+          <button onclick="addToCart({{ producto.id }})" 
+                  class="btn btn-light mt-auto {% if producto.stock <= 0 %}btn-disabled{% endif %}" 
+                  {% if producto.stock <= 0 %}disabled{% endif %}>
+            {% if producto.stock <= 0 %}Agotado{% else %}Agregar al carrito{% endif %}
+          </button>
         </div>
       </div>
-      {% empty %}
-        <p class="text-center">No hay figuras disponibles.</p>
-      {% endfor %}
     </div>
-  </main>
+    {% empty %}
+      <p class="text-center">No hay figuras disponibles.</p>
+    {% endfor %}
+  </div>
+</main>
 
-  <footer class="container mt-5">
-    <p class="float-end"><a href="#">Volver arriba</a></p>
-    <p>&copy; 2024 Waggy's Pet Shop</p>
-  </footer>
+<footer class="container mt-5">
+  <p class="float-end"><a href="#">Volver arriba</a></p>
+  <p>&copy; 2024 Waggy's Pet Shop</p>
+</footer>
 
-  <script>
-    function addToCart(productoId) {
-      fetch("{% url 'agregar_al_carrito' %}", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": getCookie("csrftoken")
-        },
-        body: JSON.stringify({ producto_id: productoId, cantidad: 1 })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          alert(data.mensaje);
-        } else {
-          alert("Error al agregar el producto: " + data.mensaje);
-        }
-      });
-    }
 
-    function getCookie(name) {
-      let cookieValue = null;
-      if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-            break;
-          }
+<script>
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
         }
       }
-      return cookieValue;
     }
-  </script>
+    return cookieValue;
+  }
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  function showAlert(type, message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type}`;
+    alertDiv.textContent = message;
+    
+    document.body.appendChild(alertDiv);
+    
+    setTimeout(() => {
+      alertDiv.remove();
+    }, 3000);
+  }
+
+  function addToCart(productoId) {
+    const btn = event.target;
+    if (btn.disabled) return;
+    
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Procesando...';
+
+    fetch("{% url 'agregar_al_carrito' %}", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken")
+      },
+      body: JSON.stringify({ producto_id: productoId, cantidad: 1 })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        showAlert('success', data.mensaje);
+        updateCartCount();
+      } else {
+        showAlert('error', data.mensaje);
+      }
+    })
+    .catch(error => {
+      showAlert('error', 'Error al comunicarse con el servidor');
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.textContent = 'Agregar al carrito';
+    });
+  }
+
+  function updateCartCount() {
+    const countElement = document.querySelector('#cart-count');
+    if (countElement) {
+      fetch("{% url 'carrito' %}")
+      .then(response => response.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const newCount = doc.querySelector('#cart-count').textContent;
+        countElement.textContent = newCount;
+      });
+    }
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

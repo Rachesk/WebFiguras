@@ -41,17 +41,31 @@ def index(request):
     return render(request, 'waggypetshop/index.html')
 
 @login_required
+# views.py
+@login_required
 def carrito(request):
     carrito, _ = Carrito.objects.get_or_create(usuario=request.user)
     items = ItemCarrito.objects.filter(carrito=carrito).select_related('producto')
+    
+    # Verificar stock para cada item
+    for item in items:
+        if not item.producto.verificar_stock(item.cantidad):
+            messages.warning(
+                request, 
+                f"El producto {item.producto.nombre} no tiene suficiente stock. " 
+                f"Stock actual: {item.producto.stock}, en carrito: {item.cantidad}"
+            )
+    
     datos = [{
         'id': item.id,
         'producto': {
             'nombre': item.producto.nombre,
             'precio': item.producto.precio,
+            'stock': item.producto.stock,  # Añadir stock a la respuesta
         },
         'cantidad': item.cantidad
     } for item in items]
+    
     return render(request, 'waggypetshop/carrito.html', {
         'items': items,
         'items_json': json.dumps(datos, cls=DjangoJSONEncoder)
@@ -145,12 +159,22 @@ def transbank_init(request):
         
         # Validar carrito y monto
         carrito = Carrito.objects.get(usuario=request.user)
-        items = ItemCarrito.objects.filter(carrito=carrito)
+        items = ItemCarrito.objects.filter(carrito=carrito).select_related('producto')
         
         if not items.exists():
             logger.warning("Carrito vacío")
             messages.error(request, "Tu carrito está vacío")
             return redirect('carrito')
+        
+        # Verificación de stock antes de proceder al pago
+        for item in items:
+            if not item.producto.verificar_stock(item.cantidad):
+                messages.error(
+                    request,
+                    f"El producto {item.producto.nombre} no tiene suficiente stock. "
+                    f"Stock actual: {item.producto.stock}, en carrito: {item.cantidad}"
+                )
+                return redirect('carrito')
         
         amount = sum(item.producto.precio * item.cantidad for item in items)
         logger.info(f"Monto calculado: {amount}")
@@ -170,7 +194,7 @@ def transbank_init(request):
         return_url = request.build_absolute_uri(reverse('transbank_return'))
         logger.info(f"Return URL: {return_url}")
 
-        transaction = Transaction(tx_options)  # Usar las opciones configuradas
+        transaction = Transaction(tx_options)
         response = transaction.create(
             buy_order=buy_order,
             session_id=session_id,
@@ -197,6 +221,10 @@ def transbank_init(request):
 
         return redirect(response['url'] + '?token_ws=' + response['token'])
 
+    except Carrito.DoesNotExist:
+        logger.error("El usuario no tiene carrito creado")
+        messages.error(request, "No tienes un carrito activo")
+        return redirect('carrito')
     except Exception as e:
         logger.error(f"Error en transbank_init: {str(e)}", exc_info=True)
         messages.error(request, f"Error al procesar el pago: {str(e)}")
@@ -288,7 +316,25 @@ def panel_bodeguero(request):
 @login_required
 @user_passes_test(es_contador)
 def vista_contador(request):
-    return render(request, 'waggypetshop/rol_contador.html')
+    estado_filtro = request.GET.get('estado')  # puede ser 'AUTHORIZED', 'FAILED', etc.
+
+    if estado_filtro:
+        pagos = OrdenTransbank.objects.filter(status=estado_filtro).order_by('-fecha_creacion')
+    else:
+        pagos = OrdenTransbank.objects.all().order_by('-fecha_creacion')
+
+    total_ventas = sum(p.amount for p in pagos)
+    total_transacciones = pagos.count()
+    ganancias_netas = total_ventas * 0.8  # ejemplo
+
+    return render(request, 'waggypetshop/rol_contador.html', {
+        'pagos': pagos,
+        'total_ventas': total_ventas,
+        'total_transacciones': total_transacciones,
+        'ganancias_netas': ganancias_netas,
+        'estado_filtro': estado_filtro
+    })
+
 
 @login_required
 @user_passes_test(es_bodeguero)
@@ -345,23 +391,56 @@ def agregar_al_carrito(request):
         data = json.loads(request.body)
         producto_id = data.get('producto_id')
         cantidad = int(data.get('cantidad', 1))
-        usuario = request.user
+        
+        if cantidad < 1:
+            return JsonResponse({
+                'success': False, 
+                'mensaje': 'La cantidad debe ser al menos 1'
+            }, status=400)
 
         producto = Producto.objects.get(id=producto_id)
-        carrito, _ = Carrito.objects.get_or_create(usuario=usuario)
-        item, creado = ItemCarrito.objects.get_or_create(carrito=carrito, producto=producto)
+        
+        # Verificar stock antes de agregar
+        if not producto.verificar_stock(cantidad):
+            return JsonResponse({
+                'success': False,
+                'mensaje': f'No hay suficiente stock disponible. Solo quedan {producto.stock} unidades.'
+            }, status=400)
+            
+        carrito, _ = Carrito.objects.get_or_create(usuario=request.user)
+        item, creado = ItemCarrito.objects.get_or_create(
+            carrito=carrito, 
+            producto=producto
+        )
 
         if not creado:
+            # Verificar si al agregar la cantidad supera el stock
+            if not producto.verificar_stock(item.cantidad + cantidad):
+                return JsonResponse({
+                    'success': False,
+                    'mensaje': f'No hay suficiente stock disponible. Solo quedan {producto.stock} unidades.'
+                }, status=400)
             item.cantidad += cantidad
         else:
             item.cantidad = cantidad
 
         item.save()
-        return JsonResponse({'success': True, 'mensaje': 'Producto agregado al carrito'})
+        return JsonResponse({
+            'success': True, 
+            'mensaje': 'Producto agregado al carrito'
+        })
+        
     except Producto.DoesNotExist:
-        return JsonResponse({'success': False, 'mensaje': 'Producto no encontrado'})
+        return JsonResponse({
+            'success': False, 
+            'mensaje': 'Producto no encontrado'
+        }, status=404)
+        
     except Exception as e:
-        return JsonResponse({'success': False, 'mensaje': f'Error inesperado: {str(e)}'})
+        return JsonResponse({
+            'success': False, 
+            'mensaje': f'Error inesperado: {str(e)}'
+        }, status=500)
 
 @require_POST
 @login_required

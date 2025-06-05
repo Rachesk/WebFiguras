@@ -20,6 +20,18 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
     
+    def verificar_stock(self, cantidad=1):
+        """Verifica si hay suficiente stock disponible"""
+        return self.stock >= cantidad
+    
+    def reducir_stock(self, cantidad=1):
+        """Reduce el stock disponible"""
+        if self.verificar_stock(cantidad):
+            self.stock -= cantidad
+            self.save()
+            return True
+        return False
+    
 class MovimientoStock(models.Model):
     ACCIONES = [
         ('CREACIÓN', 'Creación'),
