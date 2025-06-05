@@ -342,14 +342,23 @@ def vista_vendedor(request):
 @login_required
 @user_passes_test(es_contador)
 def rol_contador(request):
-    ventas = Venta.objects.all().order_by('-fecha')
-    total_ventas = ventas.aggregate(total=Sum('total'))['total'] or 0
+    estado = request.GET.get('estado')  # puede ser AUTHORIZED o FAILED
+
+    pagos = OrdenTransbank.objects.all().order_by('-fecha_creacion')
+    if estado in ['AUTHORIZED', 'FAILED']:
+        pagos = pagos.filter(status=estado)
+
+    total_ventas = pagos.filter(status='AUTHORIZED').aggregate(total=Sum('amount'))['total'] or 0
+    total_transacciones = pagos.count()
+    ganancias_netas = round(total_ventas * 0.8)  # por ejemplo, 80% utilidad
 
     return render(request, 'waggypetshop/rol_contador.html', {
-        'ventas': ventas,
-        'total_ventas': total_ventas
+        'pagos': pagos,
+        'total_ventas': total_ventas,
+        'total_transacciones': total_transacciones,
+        'ganancias_netas': ganancias_netas,
+        'estado_seleccionado': estado
     })
-
 
 @login_required
 @user_passes_test(es_bodeguero)
